@@ -1,0 +1,117 @@
+{
+  "final_state": {
+    "crop_details": {
+      "crop": "potato",
+      "lat": 11.42,
+      "lon": 11.56,
+      "growth": "flowering",
+      "sowing_date": "2025-08-01",
+      "current_date": "2025-11-14",
+      "estimated_production": 1200,
+      "storage_availability": "No",
+      "disease_detect": false,
+      "crop_img": "graph.png"
+    },
+    "validated": {
+      "flag": true,
+      "reason": "NONE"
+    },
+    "weather_details": {
+      "temp": 28.14,
+      "hum": 14.0,
+      "wind_speed": 3.38,
+      "summary": "The weather is clear with a temperature of 28.14°C, humidity of 14% and wind speed of 3.38 m/s."
+    },
+    "disease_details": {
+      "NA": false,
+      "name": "Early Blight",
+      "reason": "High humidity and warm temperature",
+      "status": "may occur in future",
+      "spoilage_risk": "High",
+      "days_to_spoil": 10,
+      "confidence": 0.8
+    },
+    "rev_strat_details": {
+      "rev_stats": [
+        {
+          "name": "Sell",
+          "rev": 10800.0,
+          "exp": 2000.0
+        },
+        {
+          "name": "Disease Control",
+          "rev": 0.0,
+          "exp": 800.0
+        },
+        {
+          "name": "Store",
+          "rev": 0.0,
+          "exp": 1500.0
+        }
+      ]
+    },
+    "plan": {
+      "decision": "Disease Control",
+      "reason": {
+        "crop": {
+          "name": "potato",
+          "lat": 11.42,
+          "lon": 11.56,
+          "growth": "flowering",
+          "sowing_date": "2025-08-01",
+          "current_date": "2025-11-14",
+          "estimated_production": 1200,
+          "storage_availability": "No",
+          "disease_detect": false,
+          "crop_img": "graph.png"
+        },
+        "rev_stats": [
+          {
+            "name": "Sell",
+            "rev": 10800.0,
+            "exp": 2000.0
+          },
+          {
+            "name": "Disease Control",
+            "rev": 0.0,
+            "exp": 800.0
+          },
+          {
+            "name": "Store",
+            "rev": 0.0,
+            "exp": 1500.0
+          }
+        ],
+        "weather": {
+          "temp": 28.14,
+          "hum": 14.0,
+          "wind_speed": 3.38,
+          "summary": "The weather is clear with a temperature of 28.14°C, humidity of 14% and wind speed of 3.38 m/s."
+        },
+        "disease": {
+          "NA": false,
+          "name": "Early Blight",
+          "reason": "High humidity and warm temperature",
+          "status": "may occur in future",
+          "spoilage_risk": "High",
+          "days_to_spoil": 10,
+          "confidence": 0.8
+        }
+      }
+    },
+    "control_strats": {
+      "steps": [
+        "Monitor the temperature and humidity levels closely to prevent further disease spread.",
+        "Apply fungicides to the affected areas immediately.",
+        "Remove and dispose of any infected plant parts to prevent the disease from spreading.",
+        "Increase the crop's water supply to reduce the risk of further infection.",
+        "Fumigate the soil to prevent the disease from spreading to other plants.",
+        "Increase the storage availability to prevent further spoilage.",
+        "Use crop rotation techniques to prevent re-infection next season.",
+        "Implement integrated pest management (IPM) techniques to reduce the risk of disease.",
+        "Increase the estimated production target to 1500 based on the current growth and weather conditions.",
+        "Conduct regular disease analysis to prevent future outbreaks."
+      ]
+    }
+  }
+}
