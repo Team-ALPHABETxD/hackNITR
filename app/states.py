@@ -10,10 +10,7 @@ class Validation(BaseModel):
 
 
 class Weather(BaseModel):
-    temp: float = Field(description="The temparature of the area.")
-    hum: float = Field(description="The humidity of the area.")
-    wind_speed: float = Field(description="The wind speed of the area")
-    summary: str= Field(description= "Summary of all other attributes of the weather, which affects the crop farming, in detailed.")
+    summary: str= Field(description= "Summary of the weather forecasts in detailed.")
 
 
 
@@ -21,7 +18,7 @@ class Disease(BaseModel):
     NA: bool = Field(description="Indicates whether the provided crop details offer any meaningful evidence of any disease possibility (True: No disease predicted /False: disease predicted).")
     name: str = Field(description="The identified disease affecting the crop.")
     reason: str = Field(description="The underlying cause or conditions that led to the disease.")
-    status: str = Field(description="Current disease condition, e.g., 'fully contaminated' or 'may occur in future'.")
+    status: str = Field(description="Current disease condition, e.g., 'fully contaminated', 'may occur in future'.")
     spoilage_risk: str = Field(description="The severity level of potential crop spoilage: High, Medium, or Low.")
     days_to_spoil: int = Field(description="Estimated number of days before the crop becomes fully spoiled.")
     confidence: float = Field(description="Accuracy of the prediction.")
@@ -50,6 +47,7 @@ class CropState(TypedDict):
     crop_details: Dict
     validated: Optional[Dict]
     weather_details: Optional[Dict]
+    predicted_yeild: Optional[Dict]
     disease_details: Optional[Dict]
     rev_strat_details: Optional[Dict]
     plan: Optional[Dict]

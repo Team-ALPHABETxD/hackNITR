@@ -3,7 +3,7 @@ def validator_prompt(dtls):
     prompt = f"""
     You are a validation engine.
     Just validate the following fields: 
-        - crop
+        - Item
         - growth
         - sowing_date
     Given crop details:
@@ -33,9 +33,13 @@ def img_validator_prompt():
 
 def weather_summary_prompt(dtls):
     prompt = f"""
-    You are given a weather details. Extract the important informations and create a structured weather document.
-    Here is the details:
+    You are an experienced agent who helps farmer by providing intuitive, clear summary of the next 7 days weather.
+    Here is the forecast data, write the summary and help farmers to make decision,
     {dtls}
+    
+    RULES:
+    - Keep in mind it's Summary for Farmers, many of who may not be properly educated, so make it easily interpreteable
+    - Dont make it too much lengthy, concise it within 2-3 lines.
     """
 
     return prompt
@@ -49,7 +53,7 @@ def predict_disease_prompt(dtls):
     Given these crop details:
     {crop_details}
 
-    And these weather conditions:
+    And these is weather forecast for next 7 days:
     {weather_details}
 
     Your job is to predict if a disease may occur or is already present.
@@ -115,7 +119,7 @@ def planner_prompt(dtls):
     these is the revenue details:
     {revenue_details}
     
-    these is weather conditions:
+    these is weather forecast for next 7 days:
     {weather_details}
 
     And these disease analysis:
@@ -141,7 +145,7 @@ def disease_control_prompt(dtls):
     Given these crop details:
     {crop_details}
 
-    these weather conditions:
+    these is weather forecast for next 7 days:
     {weather_details}
 
     And these disease analysis:

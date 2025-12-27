@@ -35,10 +35,18 @@ def data_agent(state:CropState) -> CropState:
     lat = crop_details['lat']
     lon = crop_details['lon']
 
-    weather_data = get_weather_details(lat=lat, lon=lon)
+    weather_data = get_weather_forecast(lat=lat, lon=lon)
     res = llm.with_structured_output(Weather).invoke(weather_summary_prompt(weather_data))
     state['weather_details'] = res.dict()
+    state['weather_details']['forecasts'] = weather_data
     return state
+
+def yeild_predict_agent(state:CropState) -> CropState:
+    crop_details = state['crop_details']
+    res = predict_yeild(crop_details)
+    state['predicted_yeild'] = res
+    return state
+    
 
 def disease_detect_agent(state:CropState) -> CropState:
     res = llm.with_structured_output(Disease).invoke(predict_disease_prompt(state))
@@ -86,9 +94,10 @@ from langgraph.graph import StateGraph, START, END
 graph = StateGraph(CropState)
 graph.add_node("validator_agent", validator_agent)
 graph.add_node("data_agent", data_agent)
-graph.add_node("disease_predict_agent", disease_predict_agent)
+graph.add_node("yeild_predict_agent", yeild_predict_agent)
 graph.add_node("disease_detect_agent", disease_detect_agent)
 graph.add_node("revenue_estimate_agent", revenue_estimate_agent)
+graph.add_node("disease_predict_agent", disease_predict_agent)
 graph.add_node("planner_agent", planner_agent)
 graph.add_node("collaborative_agent", collaborative_agent)
 graph.add_node("control_agent", control_agent)
@@ -100,13 +109,13 @@ graph.add_conditional_edges("data_agent", disease_cond, {True: "disease_detect_a
 # graph.add_edge(["disease_detect_agent", "disease_predict_agent"], "planner_agent")
 graph.add_edge("disease_detect_agent", "revenue_estimate_agent")
 graph.add_edge("disease_predict_agent", "revenue_estimate_agent")
-graph.add_edge("revenue_estimate_agent", "planner_agent")
+graph.add_edge("revenue_estimate_agent", "yeild_predict_agent")
+graph.add_edge("yeild_predict_agent", "planner_agent")
 graph.add_conditional_edges("planner_agent", collaborative_cond, 
     {
-        "Sell":"collaborative_agent",
+        "Sell":END,
         "Disease Control": "control_agent",
         "Store": END
     })
-graph.add_edge(["planner_agent", "collaborative_agent"], END)
 
 agents = graph.compile()

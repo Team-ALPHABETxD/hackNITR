@@ -2,9 +2,12 @@ from dotenv import load_dotenv
 import os
 import requests
 import base64
+import joblib
+import pandas as pd
+import datetime
+
 
 load_dotenv()
-print(os.getenv('WEATHER_API'))
 
 # def list_gemini_models():
 #     url = f"https://generativelanguage.googleapis.com/v1/models?key={os.getenv('GEMINI_API_KEY')}"
@@ -23,8 +26,12 @@ def get_weather_details(lat, lon):
     return response.json()
 
 
-
-
+def predict_yeild (dtls):
+    pipeline = joblib.load('./yeild_prediction/pipeline.pkl')
+    dtls_df = pd.DataFrame([dtls])    
+    pred = pipeline.predict(dtls_df.iloc[:, 0:4])
+    return float(pred[0])
+    
 
 def analyse_crop_img(image, prompt):
 
@@ -66,6 +73,27 @@ def analyse_crop_img(image, prompt):
         return 0
 
 
+
+def get_weather_forecast (lat, lon):
+    d = datetime.datetime.now()
+    ds = str(d).split(' ')[0]
+    fd = d + datetime.timedelta(days=6)
+    fds = str(fd).split(' ')[0]
+    
+    url = "https://api.open-meteo.com/v1/forecast"
+    params = {
+        "latitude": lat,
+        "longitude": lon,
+        "daily": ["temperature_2m_max", "wind_speed_10m_max", "relative_humidity_2m_max", "surface_pressure_mean", "pressure_msl_mean", "apparent_temperature_max", "uv_index_max", "daylight_duration"],
+        "timezone": "auto",
+        "start_date": ds,
+        "end_date": fds,
+    }
+    
+    res = requests.get(url, params=params)
+    print(res.json())
+    return res.json()
+    
+
 # list_gemini_models()
-
-
+# get_weather_forecast()
