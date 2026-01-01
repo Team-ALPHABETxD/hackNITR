@@ -1,0 +1,7 @@
+pathway
+kafka-python
+requests
+langchain
+pydantic
+dotenv
+langchain-groq

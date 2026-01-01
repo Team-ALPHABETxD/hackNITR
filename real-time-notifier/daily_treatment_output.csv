@@ -1,0 +1,43 @@
+"farmer_id","crop_name","temperature_2m_max","wind_speed_10m_max","relative_humidity_2m_max","latitude","longitude","advice","time","diff"
+"2"," rice","24.7","7.3","91","23.375","79.0","Based on the given conditions, here are my recommendations for rice crop:
+
+1. **Flood Control**: With high humidity and a moderate temperature of 24.7°C, the risk of water-borne diseases is high. I recommend maintaining optimal water levels to prevent stagnation and ensure adequate drainage.
+
+2. **Pest Management**: High humidity and moderate temperatures create an ideal environment for pests like rice leaf beetle and stem borer. Regular scouting and use of integrated pest management strategies, including crop rotation and biological controls, are essential to prevent infestations.
+
+3. **Fertilizer Application**: Rice requires a balanced nutrient supply, especially nitrogen, phosphorus, and potassium. Given the current weather conditions, it's a good time for foliar fertilization to provide the necessary nutrients and promote healthy growth.
+
+Risk Score: 6/10
+
+The risk score is moderate due to the high humidity and potential for water-borne diseases, as well as the favorable conditions for pests. However, with proper management and monitoring, the risk can be mitigated, and the crop can continue to thrive.","1767247542132","1"
+"1"," wheat","-21.8","44.7","80","85.625","-45.5","Based on the given weather conditions, here are 3 short advice for wheat crops:
+
+1. **Frost protection**: With the temperature dropping to -21.8°C, frost protection is crucial to prevent damage to the wheat crop. Consider using sprinkler irrigation or other methods to maintain a temperature above freezing.
+
+2. **Wind protection**: The 44.7 km/h wind speed may cause damage to the wheat crop, leading to lodging or reduced yields. Consider using windbreaks or other methods to reduce wind impact.
+
+3. **Monitoring**: Keep a close eye on the crop's condition and adjust management practices accordingly. Monitor for signs of frost damage, lodging, or other issues that may arise from the harsh weather conditions.
+
+Risk score: 8/10
+
+The combination of extreme cold and high wind speeds poses a significant risk to the wheat crop, and prompt action is necessary to minimize damage.","1767247542132","1"
+"3"," corn","26.3","31.0","77","12.5","67.875","**Short Advises:**
+
+1. Be cautious of heat stress, as the temperature is already above 25°C, which can impact corn growth. Ensure adequate irrigation and consider using row covers or shade cloth if possible.
+2. High humidity can lead to fungal diseases. Regularly inspect the crop for signs of infection and consider applying fungicides as a preventive measure.
+3. The strong wind speed of 31 km/h may cause physical damage to the plants. Check for any signs of lodging or broken stalks and consider using windbreaks or other support systems.
+
+**Risk Score: 6/10**
+
+The main risks associated with this weather condition are heat stress and potential fungal diseases. While the wind speed is high, it's not the primary concern at the moment.","1767247542132","1"
+"4"," barley","14.6","45.6","98","34.558765","-123.43912","Based on the given conditions, here are three short advice for barley crop management:
+
+1. **Reduce Irrigation**: High humidity and moderate temperature suggest that the soil may be too moist. Consider reducing irrigation to prevent waterlogged soil, which can lead to root rot and other diseases.
+
+2. **Secure Crop**: Strong winds like 45.6 km/h can cause lodging (stem breakage) and increase the risk of fungal diseases. Ensure the crop is securely tied to prevent damage.
+
+3. **Monitor for Fungal Diseases**: The combination of high humidity and moderate temperature creates an ideal environment for fungal diseases like powdery mildew and septoria. Regularly inspect the crop for signs of disease and take action promptly if necessary.
+
+Risk score: 7/10
+
+The risk of disease and lodging is moderate due to the prevailing weather conditions. Proactive management is necessary to mitigate these risks and ensure a healthy and productive crop.","1767247542132","1"

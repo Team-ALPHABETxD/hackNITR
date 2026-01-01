@@ -1,0 +1,5 @@
+farmer_id,crop_name,lat,lon
+1, wheat,85.59,-45.52
+2, rice,23.32,78.96
+3, corn,12.45,67.89
+4, barley,34.56,-123.45
