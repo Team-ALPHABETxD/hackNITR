@@ -22,6 +22,9 @@ connectDB();
 
 // Routes
 app.use('/api/analysis', analysisRoutes);
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/ngos', require('./routes/ngoRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 
 // Health check
 app.get('/health', (req, res) => {
