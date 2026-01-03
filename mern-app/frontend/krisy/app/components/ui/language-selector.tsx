@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { ElevenLabsCallButton } from './elevenlabs-call-button';
 import { Globe, X } from 'lucide-react';
 import { useLanguage } from '@/app/context/language-context';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -21,7 +22,11 @@ export function LanguageSelector() {
     const { language, setLanguage } = useLanguage();
 
     return (
+<<<<<<< HEAD
         <div className="fixed bottom-24 right-6 z-[6000]">
+=======
+        <div className="fixed bottom-24 right-8 z-[6000] flex flex-col items-end gap-2">
+>>>>>>> 482793b52ecb5501058fa4460adb40163b6fad15
             {/* Pop-up Menu */}
             <AnimatePresence>
                 {isOpen && (
@@ -83,6 +88,9 @@ export function LanguageSelector() {
                     <Globe className="w-6 h-6 text-black" />
                 )}
             </button>
+
+            {/* Eleven Labs Call Button just below the language selector */}
+            <ElevenLabsCallButton />
         </div>
     );
 }
