@@ -1,9 +1,18 @@
-from graphs import agents
+from graphs import agents, llm
+from prompts import voice_assistant_prompt
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 import pandas as pd
 import joblib
+from pydantic import BaseModel, Field
+
+# Define Pydantic model for structured output
+class VoiceAction(BaseModel):
+    action: str = Field(description="The action to perform: navigate, fill_form, click, or speak")
+    data: dict = Field(description="Data associated with the action. For click, include 'elementId'.")
+    response_text: str = Field(description="Text to speak to the user")
+
 
 # visualise the graph
 from IPython.display import Image, display
@@ -55,6 +64,41 @@ def invoke_agents():
             "flag": "fail",
             "error": str(e)
         }), 500
+
+@app.route('/voice/command', methods=['POST'])
+def voice_command():
+    try:
+        data = request.get_json(force=True)
+        user_input = data.get('text')
+        current_page = data.get('page')
+        form_data = data.get('formData', {})
+        
+        print(f"Voice Command: {user_input} on {current_page}", flush=True)
+        print(f"Form Data: {form_data}", flush=True)
+        
+        prompt = voice_assistant_prompt(user_input, current_page, form_data)
+        
+        try:
+             res = llm.with_structured_output(VoiceAction).invoke(prompt)
+             return jsonify(res.dict())
+        except Exception as e:
+             print("Structured output failed, falling back:", e)
+             res = llm.invoke(prompt)
+             content = res.content
+             if "```json" in content:
+                 content = content.split("```json")[1].split("```")[0]
+             elif "```" in content:
+                 content = content.split("```")[1].split("```")[0]
+             return jsonify(json.loads(content))
+
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return jsonify({
+            "action": "speak",
+            "data": {},
+            "response_text": "Sorry, I encountered an error. Please try again."
+        }), 200
+
   
 
 # def invoke_agents_():

@@ -21,7 +21,7 @@ export function LanguageSelector() {
     const { language, setLanguage } = useLanguage();
 
     return (
-        <div className="fixed bottom-8 right-8 z-[6000]">
+        <div className="fixed bottom-24 right-6 z-[6000]">
             {/* Pop-up Menu */}
             <AnimatePresence>
                 {isOpen && (

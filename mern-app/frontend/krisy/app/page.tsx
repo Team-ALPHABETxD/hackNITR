@@ -19,9 +19,11 @@ import { TextGenerateEffect } from "@/app/components/ui/text-generate-effect";
 import { CometCard } from "@/app/components/ui/comet-card";
 import { useLanguage } from "@/app/context/language-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { t } = useLanguage();
+  const router = useRouter();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -75,6 +77,7 @@ export default function Home() {
 
               <div className="mt-12 flex flex-wrap gap-4">
                 <button
+                  onClick={() => router.push('/reports')}
                   className="
                                         px-8 py-5
                                         rounded-2xl

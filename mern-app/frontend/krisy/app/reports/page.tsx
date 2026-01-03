@@ -89,7 +89,11 @@ export default function ReportPage() {
                                 <Sprout className="w-4 h-4 text-green-600" />
                                 {t("cropName")}
                             </Label>
-                            <select className="mt-1 w-full rounded-md border-2 border-gray-200 bg-white px-3 py-2.5 text-sm text-black font-medium focus:border-black focus:ring-0 transition-all outline-none">
+                            <select 
+                                name="Item"
+                                id="Item"
+                                className="mt-1 w-full rounded-md border-2 border-gray-200 bg-white px-3 py-2.5 text-sm text-black font-medium focus:border-black focus:ring-0 transition-all outline-none"
+                            >
                                 {[
                                     "Potatoes",
                                     "Plantains and others",
@@ -113,7 +117,11 @@ export default function ReportPage() {
                                 <Sprout className="w-4 h-4 text-green-600 rotate-45" />
                                 {t("growthStage")}
                             </Label>
-                            <select className="mt-1 w-full rounded-md border-2 border-gray-200 bg-white px-3 py-2.5 text-sm text-black font-medium focus:border-black focus:ring-0 transition-all outline-none">
+                            <select 
+                                name="growth"
+                                id="growth"
+                                className="mt-1 w-full rounded-md border-2 border-gray-200 bg-white px-3 py-2.5 text-sm text-black font-medium focus:border-black focus:ring-0 transition-all outline-none"
+                            >
                                 <option>Seedling</option>
                                 <option>Vegetative</option>
                                 <option>Flowering</option>
@@ -128,7 +136,12 @@ export default function ReportPage() {
                                 <Calendar className="w-4 h-4 text-green-600" />
                                 {t("sowingDate")}
                             </Label>
-                            <Input type="date" className="mt-1 bg-white border-2 border-gray-200 text-black font-medium" />
+                            <Input 
+                                type="date" 
+                                name="sowing_date"
+                                id="sowing_date"
+                                className="mt-1 bg-white border-2 border-gray-200 text-black font-medium" 
+                            />
                         </div>
 
                         {/* Current Date */}
@@ -137,7 +150,12 @@ export default function ReportPage() {
                                 <CalendarDays className="w-4 h-4 text-green-600" />
                                 {t("currentDate")}
                             </Label>
-                            <Input type="date" className="mt-1 bg-white border-2 border-gray-200 text-black font-medium" />
+                            <Input 
+                                type="date" 
+                                name="current_date"
+                                id="current_date"
+                                className="mt-1 bg-white border-2 border-gray-200 text-black font-medium" 
+                            />
                         </div>
                     </div>
 
@@ -151,6 +169,8 @@ export default function ReportPage() {
                             </Label>
                             <Input
                                 type="number"
+                                name="average_rain_fall_mm_per_year"
+                                id="rainfall"
                                 placeholder="e.g. 1485"
                                 className="mt-1 bg-white border-2 border-gray-200 text-black font-medium"
                             />
@@ -164,6 +184,8 @@ export default function ReportPage() {
                             </Label>
                             <Input
                                 type="number"
+                                name="pesticides_tonnes"
+                                id="pesticides"
                                 placeholder="e.g. 121"
                                 className="mt-1 bg-white border-2 border-gray-200 text-black font-medium"
                             />
@@ -177,6 +199,8 @@ export default function ReportPage() {
                             </Label>
                             <Input
                                 type="number"
+                                name="avg_temp"
+                                id="avg_temp"
                                 placeholder="e.g. 16.37"
                                 className="mt-1 bg-white border-2 border-gray-200 text-black font-medium"
                             />
@@ -192,17 +216,22 @@ export default function ReportPage() {
                                 <Input
                                     placeholder="Latitude"
                                     value={lat}
+                                    name="lat"
+                                    id="lat"
                                     readOnly
                                     className="bg-gray-50 border-2 border-gray-200 text-black font-mono"
                                 />
                                 <Input
                                     placeholder="Longitude"
                                     value={lon}
+                                    name="lon"
+                                    id="lon"
                                     readOnly
                                     className="bg-gray-50 border-2 border-gray-200 text-black font-mono"
                                 />
                                 <button
                                     type="button"
+                                    id="detect_location_btn"
                                     onClick={detectLocation}
                                     className="px-6 rounded-md bg-black text-white text-xs font-bold uppercase hover:bg-gray-800 transition-all active:scale-95"
                                 >
@@ -216,6 +245,7 @@ export default function ReportPage() {
                     <div className="md:col-span-2 mt-8">
                         <button
                             type="button"
+                            id="detect_disease_btn"
                             onClick={() => setDetectDisease(!detectDisease)}
                             className={`w-full py-3 rounded-xl border-2 border-black font-bold uppercase flex items-center justify-center gap-3 transition-all ${detectDisease
                                 ? "bg-red-500 text-white shadow-none translate-x-[2px] translate-y-[2px]"
@@ -260,6 +290,7 @@ export default function ReportPage() {
                     <div className="md:col-span-2 mt-12 flex justify-center">
                         <button
                             type="submit"
+                            id="generate_report_btn"
                             className="
                 px-12 py-4
                 rounded-xl
