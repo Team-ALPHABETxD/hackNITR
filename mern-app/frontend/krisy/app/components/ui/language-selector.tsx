@@ -22,11 +22,7 @@ export function LanguageSelector() {
     const { language, setLanguage } = useLanguage();
 
     return (
-<<<<<<< HEAD
-        <div className="fixed bottom-24 right-6 z-[6000]">
-=======
         <div className="fixed bottom-24 right-8 z-[6000] flex flex-col items-end gap-2">
->>>>>>> 482793b52ecb5501058fa4460adb40163b6fad15
             {/* Pop-up Menu */}
             <AnimatePresence>
                 {isOpen && (
