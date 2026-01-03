@@ -17,24 +17,45 @@ def graph_flow_img():
 app = Flask(__name__)
 CORS(app)
 
+# @app.route('/analyse/report', methods=['POST'])
+# def invoke_agents():
+#     try:
+#         user_details = request.get_json(force= True)
+#         print(user_details)
+
+#         res = agents.invoke({'crop_details': user_details})
+#         # res = json.dumps(res)
+#         print("final state: ", json.dumps(res))
+#         # print("Weather: ", res["weather_details"])
+#         # print("Weather: ", res.weather_details)
+#         return jsonify(res)
+#     except:
+#         return jsonify({
+#             "flag": "fail",
+#             "msg": "Please try again..."
+#         }), 500
+
+import traceback, sys
+
 @app.route('/analyse/report', methods=['POST'])
 def invoke_agents():
     try:
-        user_details = request.get_json(force= True)
-        print(user_details)
+        user_details = request.get_json(force=True)
+        print("Incoming:", user_details, flush=True)
 
+        print("Invoking agents...", flush=True)
         res = agents.invoke({'crop_details': user_details})
-        # res = json.dumps(res)
-        print("final state: ", json.dumps(res))
-        # print("Weather: ", res["weather_details"])
-        # print("Weather: ", res.weather_details)
+
+        print("Agents completed", flush=True)
         return jsonify(res)
-    except:
+
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
         return jsonify({
             "flag": "fail",
-            "msg": "Please try again..."
-        })
-    
+            "error": str(e)
+        }), 500
+  
 
 # def invoke_agents_():
 #     try:

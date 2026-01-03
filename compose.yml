@@ -28,6 +28,7 @@ services:
       - "8080:8000"
     volumes:
       - ./real-time-notifier:/app
+    restart: unless-stopped
 
   server:
     build: ./server
@@ -37,3 +38,12 @@ services:
       - "3000:3000"
     volumes:
       - ./server:/server
+
+  agents:
+    build: ./app
+    depends_on:
+      - server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/agents
