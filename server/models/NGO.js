@@ -27,18 +27,9 @@ const ngoSchema = new mongoose.Schema({
     postalCode: { type: String, default: '' },
     country: { type: String, default: '' }
   },
-  location: {
-    // GeoJSON Point: [lon, lat]
-    type: {
-      type: String,
-      enum: ['Point'],
-      default: 'Point'
-    },
-    coordinates: {
-      type: [Number],
-      required: true
-    }
-  },
+  location: String,
+  lat: Number,
+  lon: Number,
   serviceRadiusKm: {
     type: Number,
     default: 50

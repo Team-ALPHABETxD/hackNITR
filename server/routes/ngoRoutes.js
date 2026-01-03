@@ -2,15 +2,23 @@ const express = require('express');
 const router = express.Router();
 const NGO = require('../models/NGO');
 const { authenticate, requireRole } = require('../middleware/auth');
+const connectRedis = require('../redis');
+
+
+
+const redis = connectRedis()
 
 // Create NGO (admin only)
-router.post('/', authenticate, requireRole('admin'), async (req, res) => {
+router.post('/create', authenticate, requireRole('admin'), async (req, res) => {
   try {
     const { name, description, services, contact, address, location, serviceRadiusKm, availability, verified } = req.body;
-    if (!name || !location || !Array.isArray(location.coordinates)) return res.status(400).json({ success: false, error: 'Missing required fields: name and location.coordinates [lon, lat]' });
+    if (!name || !location || !lat || !lon) return res.status(400).json({ success: false, error: 'Missing required fields: name and location.coordinates [lon, lat]' });
 
     const ngo = new NGO({ name, description, services, contact, address, location, serviceRadiusKm, availability, verified });
     await ngo.save();
+
+    const isSucc = await redis.geoadd("ngos", lon, lat, name)
+    console.log(isSucc)
 
     res.status(201).json({ success: true, data: ngo });
   } catch (err) {

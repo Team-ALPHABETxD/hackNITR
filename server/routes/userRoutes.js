@@ -41,7 +41,7 @@ router.post('/requests', authenticate, requireRole('user'), async (req, res) => 
 
 // Get all requests made by the authenticated user
 // GET /api/users/requests
-router.get('/requests', authenticate, requireRole(['user','ngo','admin']), async (req, res) => {
+router.get('/requests', authenticate, requireRole(['user', 'ngo', 'admin']), async (req, res) => {
   try {
     const userId = req.user.id;
     const user = await User.findById(userId).populate('requests.ngo', 'name contact address services');
@@ -115,7 +115,7 @@ router.patch('/:userId/requests/:requestId/status', authenticate, async (req, re
     const { userId, requestId } = req.params;
     const { status } = req.body;
 
-    if (!['pending','accepted','rejected','resolved'].includes(status)) return res.status(400).json({ success: false, error: 'Invalid status' });
+    if (!['pending', 'accepted', 'rejected', 'resolved'].includes(status)) return res.status(400).json({ success: false, error: 'Invalid status' });
 
     // Find the target user and the request
     const targetUser = await User.findById(userId);
@@ -145,5 +145,20 @@ router.patch('/:userId/requests/:requestId/status', authenticate, async (req, re
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+
+// user's daily advices
+router.get('/advices', authenticate, async (req, res) => {
+  try {
+    const userId = req.user.id
+    const user = await User.findById(userId)
+    if(!user) return res.status(401).json({succes: false, msg: "User not found"})
+    const advices = user.advices
+    return res.status(200).json({ data: advices })
+  }
+  catch {
+    return res.status(500).json({ success: false, error: err.message })
+  }
+})
 
 module.exports = router;
