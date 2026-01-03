@@ -3,6 +3,7 @@ const router = express.Router();
 const NGO = require('../models/NGO');
 const { authenticate, requireRole } = require('../middleware/auth');
 const connectRedis = require('../redis');
+const User = require('../models/User');
 
 
 
@@ -18,13 +19,41 @@ router.post('/create', authenticate, requireRole('admin'), async (req, res) => {
     await ngo.save();
 
     const isSucc = await redis.geoadd("ngos", lon, lat, name)
-    console.log(isSucc)
+    console.log(`Pushed to redis: ${isSucc}`)
 
     res.status(201).json({ success: true, data: ngo });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+// Fetch nearby ngos
+router.get('/nearby', authenticate, async (req, res) => {
+  try {
+    const userId = req.user.id
+    const user = await User.findById(userId)
+    const lat = user.lat
+    const lon = user.lon
+
+    const radius = 200
+    const data = await redis.geosearch(
+            "ngos",
+            "FROMLONLAT",
+            lon,        
+            lat,
+            "BYRADIUS",
+            radius,
+            "km",
+            "WITHDIST",
+            "COUNT",
+            5
+    )
+    console.log(data)
+    return res.status(200).json({data: data})
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message })
+  }
+})
 
 // Update NGO (admin only)
 router.put('/:id', authenticate, requireRole('admin'), async (req, res) => {

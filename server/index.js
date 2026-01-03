@@ -89,7 +89,6 @@ const kafkaConsumerService = async () => {
 // trigger_producer()
 kafkaConsumerService()
 
-//@anik added
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -105,7 +104,6 @@ app.use((req, res, next) => {
 // Connect Database
 connectDB();
 
-// connect to redis
 
 // Routes
 app.use('/api/analysis', analysisRoutes);
