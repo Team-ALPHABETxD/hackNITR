@@ -19,6 +19,7 @@ process.on('uncaughtException', (err) => {
 //@anik added
 const connectDB = require('./config/db');
 const analysisRoutes = require('./routes/analysisRoutes');
+const connectRedis = require("./redis")
 
 const PORT = process.env.PORT || 3000
 
@@ -103,6 +104,8 @@ app.use((req, res, next) => {
 
 // Connect Database
 connectDB();
+
+// connect to redis
 
 // Routes
 app.use('/api/analysis', analysisRoutes);
