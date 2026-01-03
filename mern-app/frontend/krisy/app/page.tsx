@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { BackgroundRippleEffect } from "@/app/components/ui/background-ripple-effect";
 import { TextGenerateEffect } from "@/app/components/ui/text-generate-effect";
-import { CometCard } from "@/app/components/ui/comet-card";
 import { useLanguage } from "@/app/context/language-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
 
@@ -112,24 +111,15 @@ export default function Home() {
               <div className="absolute -top-10 -right-10 w-32 h-32 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
               <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-green-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
 
-              <div className="w-full max-w-[420px]">
-                <CometCard className="w-full aspect-square">
-                  <div className="relative w-full h-full overflow-hidden rounded-3xl border-4 border-black group">
-                    <Image
-                      src="/farmer.png"
-                      alt="Farmer using technology"
-                      width={420}
-                      height={420}
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div className="absolute bottom-6 left-6 text-white">
-                      <p className="font-black text-2xl uppercase italic">Empowering 40,000+</p>
-                      <p className="font-bold opacity-80">Rural entrepreneurs globally</p>
-                    </div>
-                  </div>
-                </CometCard>
+              <div className="w-full max-w-[500px] flex justify-center items-center">
+                <Image
+                  src="/farmer3.png"
+                  alt="Farmer"
+                  width={480}
+                  height={600}
+                  className="rounded-3xl border-4 border-green-800 shadow-lg object-cover h-[500px] w-[380px] lg:h-[600px] lg:w-[480px] bg-white"
+                  priority
+                />
               </div>
             </motion.div>
           </div>
