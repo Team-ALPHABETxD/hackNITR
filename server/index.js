@@ -29,64 +29,64 @@ app.use(cors({
 }))
 
 const httpServer = createServer(app)
-// // socket server creation
-// const io = new Server(httpServer, {
-//     cors: {
-//         origin: process.env.CLIENT_URL || "http://localhost:3000",
-//     }
-// })
+// socket server creation
+const io = new Server(httpServer, {
+    cors: {
+        origin: process.env.CLIENT_URL || "http://localhost:3000",
+    }
+})
 
-// // kafka consumer
-// const kafkaConsumerService = async () => {
-//     try {
-//         const consumer = await kafkaClient.consumer({ groupId: "temp" })
-//         console.log("Connecting Consumer")
-//         await consumer.connect()
-//         console.log("connected Consumer")
+// kafka consumer
+const kafkaConsumerService = async () => {
+    try {
+        const consumer = await kafkaClient.consumer({ groupId: "temp" })
+        console.log("Connecting Consumer")
+        await consumer.connect()
+        console.log("connected Consumer")
 
-//         console.log("Consumer Subscribing topic")
-//         await consumer.subscribe({ topics: ['daily_crop_treatment'], fromBeginning: true }) // start from the beginning of the topic
-//         console.log("Consumer Subscribed ['daily_crop_treatment']")
+        console.log("Consumer Subscribing topic")
+        await consumer.subscribe({ topics: ['daily_crop_treatment'], fromBeginning: true }) // start from the beginning of the topic
+        console.log("Consumer Subscribed ['daily_crop_treatment']")
 
 
-//         await consumer.run({
-//             eachMessage: async ({ topic, message }) => {
-//                 try {
-//                     console.log(`Consumed from ${topic} | 
-//                         message: ${message.value.toString()}`)
+        await consumer.run({
+            eachMessage: async ({ topic, message }) => {
+                try {
+                    console.log(`Consumed from ${topic} | 
+                        message: ${message.value.toString()}`)
 
-//                     const data = JSON.parse(message.value.toString())
-//                     const { longitude, latitude, advice } = data
-//                     // find users by exact lat/lon (await the query)
-//                     const users = await User.find({ lat: latitude, lon: longitude })
-//                     console.log(`lat: ${latitude}, lon: ${longitude}, adv: ${advice}`)
+                    const data = JSON.parse(message.value.toString())
+                    const { longitude, latitude, advice } = data
+                    // find users by exact lat/lon (await the query)
+                    const users = await User.find({ lat: latitude, lon: longitude })
+                    console.log(`lat: ${latitude}, lon: ${longitude}, adv: ${advice}`)
                 
-//                     if (!users || users.length === 0) return
-//                     for (const user of users) {
-//                         user.advices.push({
-//                             date: new Date(),
-//                             message: advice
-//                         })
-//                         await user.save()
-//                     }
-//                 } catch (e) {
-//                     console.error('Error processing message:', e.message)
-//                 }
-//             }
-//         })
-//     } catch (err) {
-//         console.error('Kafka consumer error:', err.message)
-//         // retry after delay without crashing the entire server
-//         setTimeout(() => {
-//             console.log('Retrying kafka consumer...')
-//             kafkaConsumerService()
-//         }, 10000)
-//     }
-// }
+                    if (!users || users.length === 0) return
+                    for (const user of users) {
+                        user.advices.push({
+                            date: new Date(),
+                            message: advice
+                        })
+                        await user.save()
+                    }
+                } catch (e) {
+                    console.error('Error processing message:', e.message)
+                }
+            }
+        })
+    } catch (err) {
+        console.error('Kafka consumer error:', err.message)
+        // retry after delay without crashing the entire server
+        setTimeout(() => {
+            console.log('Retrying kafka consumer...')
+            kafkaConsumerService()
+        }, 10000)
+    }
+}
 
-// // initAdmin()
-// // trigger_producer()
-// kafkaConsumerService()
+// initAdmin()
+// trigger_producer()
+kafkaConsumerService()
 
 //@anik added
 // Middleware
