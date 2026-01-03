@@ -19,6 +19,12 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+
+  redis:
+    image: redis/redis-stack
+    ports:
+      - 6379:6379
 
   pathway:
     build: ./real-time-notifier
@@ -34,6 +40,7 @@ services:
     build: ./server
     depends_on:
       - kafka
+      - redis
     ports:
       - "3000:3000"
     volumes:
