@@ -16,16 +16,59 @@ rdkafka_settings = {
     "bootstrap.servers": "kafka:9092",
 }
 
+EXAMPLE = f'''
+Weather summary
+Moderate temperature with given humidity and wind. Conditions are generally workable; watch moisture stress if humidity is low and disease risk if humidity is high.
+
+Crop-wise plan and advice
+
+Maize
+Plan: Maintain soil moisture, light nitrogen top-dress.
+Advice: Watch for leaf pests and avoid water stress at tasseling.
+
+Potatoes
+Plan: Regular irrigation, good drainage.
+Advice: Monitor for late blight, avoid waterlogging.
+
+Rice (paddy)
+Plan: Keep shallow standing water, balanced nutrients.
+Advice: Check for pests and reduce water if wind increases lodging risk.
+
+Sorghum
+Plan: Minimal irrigation, weed control.
+Advice: Drought-tolerant but protect young plants from pests.
+
+Soybeans
+Plan: Moderate irrigation, ensure good aeration.
+Advice: Avoid excess moisture, watch for fungal diseases.
+
+Wheat
+Plan: Light irrigation at critical stages.
+Advice: Protect from rust and avoid excess nitrogen.
+
+Cassava
+Plan: Low input, good drainage.
+Advice: Avoid waterlogging and control mites.
+
+Sweet potatoes
+Plan: Light but regular watering.
+Advice: Prevent vine rot and manage weevils.
+
+Plantains and others
+Plan: Mulching and steady moisture.
+Advice: Protect from wind damage and leaf diseases.
+
+Yams
+Plan: Well-drained soil, staking if needed.
+Advice: Avoid excess water and monitor for tuber rot.
+'''
+
 # Schemas
 class CropRegistry(pw.Schema):
-    farmer_id: int
-    crop_name: str
     lat: float
     lon: float
 
 class DailyAdvice(pw.Schema):
-    farmer_id: int
-    crop_name: str
     latitude: float
     longitude: float
     temperature_2m_max: float
@@ -33,12 +76,6 @@ class DailyAdvice(pw.Schema):
     relative_humidity_2m_max: float
     advice: str
     
-class AdviceSchema(BaseModel):
-    advices: list[str] = Field("Advices need to follow")
-    risk: float = Field("Serverity score in 1-10")
-
-
-
 # Weather UDF
 @pw.udf
 def fetch_weather(lat: float, lon: float) -> tuple:
@@ -79,7 +116,6 @@ def fetch_weather(lat: float, lon: float) -> tuple:
 # LLM UDF
 @pw.udf
 def generate_treatment(
-    crop_name: str,
     temp: float,
     wind: float,
     humidity: float,
@@ -87,14 +123,17 @@ def generate_treatment(
     prompt = f"""
     You are an experienced crop advisor.
 
-    Crop: {crop_name}
     Temperature: {temp}°C
     Humidity: {humidity}%
     Wind Speed: {wind} km/h
 
     Give:
-    1. 3 short advices
-    2. Risk score (1-10)
+    1. A summary of the weather
+    2. A short compact plan for each of crops given below 
+    ['Maize', 'Potatoes', 'Rice, paddy', 'Sorghum', 'Soybeans', 'Wheat',
+       'Cassava', 'Sweet potatoes', 'Plantains and others', 'Yams']
+    3. Give advices individually by mentioning each type.
+    4. Responses must be very much short and easy to understand
 
     Respond as plain text.
     """
@@ -102,34 +141,29 @@ def generate_treatment(
         res = llm.invoke(prompt)
         return res.content  # ✅ STRING ONLY
     except:
-        return prompt
+        return EXAMPLE
 
 
 
 while(True):
     # Inputs
     crop_table = pw.io.csv.read(
-        "./example.csv",
+        "./lat_lon.csv",
         schema=CropRegistry,
         mode="static",
     )
     # Pipeline
     weather_enriched = crop_table.select(
-        farmer_id=pw.this.farmer_id,
-        crop_name=pw.this.crop_name,
         weather=fetch_weather(pw.this.lat, pw.this.lon),
     )
 
     final_table = weather_enriched.select(
-        farmer_id=pw.this.farmer_id,
-        crop_name=pw.this.crop_name,
         temperature_2m_max=pw.this.weather[0],
         wind_speed_10m_max=pw.this.weather[1],
         relative_humidity_2m_max=pw.this.weather[2],
         latitude=pw.this.weather[3],
         longitude=pw.this.weather[4],
         advice=generate_treatment(
-            pw.this.crop_name,
             pw.this.weather[0],
             pw.this.weather[1],
             pw.this.weather[2],

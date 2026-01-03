@@ -1,35 +1,320 @@
-"farmer_id","crop_name","temperature_2m_max","wind_speed_10m_max","relative_humidity_2m_max","latitude","longitude","advice","time","diff"
-"2"," rice","23.7","9.1","96","23.375","79.0","Based on the given conditions, here are my short advices for rice crop:
+"temperature_2m_max","wind_speed_10m_max","relative_humidity_2m_max","latitude","longitude","advice","time","diff"
+"6.5","8.7","93","27.0","88.25","**Weather Summary:**
+Temperature: 6.5°C (cool)
+Humidity: 93% (high)
+Wind Speed: 8.7 km/h (moderate)
 
-1. **Maintain good drainage**: With high humidity and moderate temperature, the risk of waterlogged soil is high. Ensure proper drainage to prevent root rot and other water-related diseases.
+**Crop Plans:**
 
-2. **Monitor for fungal diseases**: The humid environment is conducive to the growth of fungal diseases such as sheath blight and blast. Regularly inspect the crop for any signs of disease and take action promptly.
+1. **Maize**: Delay planting by 1-2 weeks. Use row covers for protection.
+2. **Potatoes**: Maintain soil moisture. Monitor for frost damage.
+3. **Rice, paddy**: Ensure sufficient water supply. Use mulch to retain moisture.
+4. **Sorghum**: Apply fungicides to prevent disease. Monitor for pests.
+5. **Soybeans**: Avoid planting in cold conditions. Use row covers for protection.
+6. **Wheat**: Apply fungicides to prevent disease. Monitor for pests.
+7. **Cassava**: Maintain soil moisture. Monitor for pests and diseases.
+8. **Sweet potatoes**: Avoid planting in cold conditions. Use row covers for protection.
+9. **Plantains and others**: Monitor for pests and diseases. Apply fungicides if necessary.
+10. **Yams**: Maintain soil moisture. Monitor for pests and diseases.
 
-3. **Adjust irrigation schedule**: Considering the high humidity and moderate temperature, the crop may require less water. Monitor soil moisture and adjust the irrigation schedule accordingly to avoid overwatering.
+**Individual Crop Advice:**
 
-Risk score: 6 (moderate risk)","1767421287878","1"
-"1"," wheat","-21.7","29.2","84","85.625","-45.5","**Advice 1:** Immediately check for any frost damage on the wheat crop. The extremely low temperature of -21.7°C could cause significant damage to the crop.
+1. **Maize**: Be cautious of frost damage.
+2. **Potatoes**: Keep the soil consistently moist.
+3. **Rice, paddy**: Ensure enough water supply.
+4. **Sorghum**: Watch out for fungal diseases.
+5. **Soybeans**: Plant when temperatures are warmer.
+6. **Wheat**: Keep an eye out for pests and diseases.
+7. **Cassava**: Monitor for pests and diseases regularly.
+8. **Sweet potatoes**: Plant when temperatures are warmer.
+9. **Plantains and others**: Apply fungicides if you notice any disease.
+10. **Yams**: Keep the soil consistently moist.","1767441878832","1"
+"26.6","14.1","91","13.0","77.625","**Weather Summary:**
+Hot and humid conditions with moderate wind. Temperature: 26.6°C, Humidity: 91%, Wind Speed: 14.1 km/h.
 
-**Advice 2:** Consider applying a frost protection spray or using wind machines to reduce wind chill effect and prevent further damage.
+**Crop Plans:**
 
-**Advice 3:** Keep a close eye on the crop for signs of lodging or other damage caused by strong winds of 29.2 km/h. Take necessary steps to prevent further damage.
+1. Maize - Irrigate, Fertilize, Monitor for pests.
+2. Potatoes - Mulch, Fertilize, Watch for late blight.
+3. Rice, paddy - Flood, Fertilize, Prevent waterlogging.
+4. Sorghum - Irrigate, Monitor for drought, Control weeds.
+5. Soybeans - Irrigate, Fertilize, Watch for aphids.
+6. Wheat - Monitor soil moisture, Fertilize, Control weeds.
+7. Cassava - Irrigate, Monitor for pests, Fertilize.
+8. Sweet potatoes - Mulch, Fertilize, Watch for weeds.
+9. Plantains and others - Monitor for pests, Fertilize, Irrigate.
+10. Yams - Mulch, Fertilize, Watch for diseases.
 
-**Risk Score: 9/10** due to the severe weather conditions that could cause significant damage to the wheat crop.","1767421287878","1"
-"3"," corn","26.6","24.0","74","12.5","67.875","Based on the given conditions, here are three short advice for corn:
+**Individual Crop Advices:**
 
-1. Maintain a regular irrigation schedule to ensure the crop receives adequate moisture, especially with the high wind speed. This will help prevent moisture stress and reduce the risk of lodging.
-2. Scout for signs of stalk borers, which can be triggered by the high humidity and warm temperature. Regular checks will help detect any issues early and prevent significant damage.
-3. Consider applying a fungicide to protect the crop from leaf diseases, as the high humidity creates an ideal environment for fungal growth.
+1. Maize: Apply fungicides to prevent leaf diseases.
+2. Potatoes: Avoid overwatering to prevent disease.
+3. Rice, paddy: Regularly monitor water levels to prevent waterlogging.
+4. Sorghum: Use drought-tolerant varieties if necessary.
+5. Soybeans: Use integrated pest management to control aphids.
+6. Wheat: Apply herbicides to control weeds.
+7. Cassava: Monitor soil pH to prevent nutrient deficiencies.
+8. Sweet potatoes: Use organic mulch to retain moisture.
+9. Plantains and others: Use crop rotation to prevent pests.
+10. Yams: Apply fungicides to prevent root diseases.","1767441878832","1"
+"18.5","8.2","96","25.625","85.125","**Weather Summary:**
+Temperature: 18.5°C, Humidity: 96%, Wind Speed: 8.2 km/h
 
-Risk score: 6/10
+These conditions indicate a mild and humid climate with moderate wind speed, suitable for growth but with potential risks of fungal diseases.
 
-The high wind speed and humidity pose some risk to the crop, but the temperature is within a suitable range for growth. With proper management, these risks can be mitigated, but regular monitoring is essential to prevent significant damage.","1767421287878","1"
-"4"," barley","14.7","51.5","96","34.558765","-123.43912","As a crop advisor, given the conditions for barley, here are my recommendations:
+**Crop Plans:**
 
-1. **Watch for lodging**: The high wind speed of 51.5 km/h may cause barley plants to lodge, leading to reduced yields and increased disease risk. Consider using windbreaks or adjusting your harvesting schedule to minimize losses.
-2. **Monitor for fusarium head blight**: The humid conditions (96% humidity) and moderate temperature (14.7°C) create an ideal environment for fusarium head blight to develop. Regularly inspect your barley crop for signs of infection and consider using fungicides if necessary.
-3. **Adjust irrigation**: With the high humidity, the risk of overwatering is increased. Monitor soil moisture levels and adjust your irrigation schedule to prevent waterlogged soils, which can lead to root rot and other issues.
+1. Maize - Monitor for blights and diseases, maintain adequate moisture.
+2. Potatoes - Control humidity, ensure good air circulation to prevent diseases.
+3. Rice (Paddy) - Maintain optimal water levels, ensure proper drainage.
+4. Sorghum - Monitor for pests, ensure adequate moisture.
+5. Soybeans - Monitor for diseases, ensure proper nitrogen levels.
+6. Wheat - Maintain optimal moisture, monitor for pests and diseases.
+7. Cassava - Monitor for pests, ensure adequate moisture.
+8. Sweet Potatoes - Control humidity, ensure good air circulation.
+9. Plantains and others - Maintain optimal moisture, monitor for diseases.
+10. Yams - Monitor for pests, ensure adequate moisture.
 
-Risk score: 8/10
+**Individual Crop Advice:**
 
-The combination of high wind speed, high humidity, and moderate temperature creates a challenging environment for barley. While the conditions aren't extreme, they do pose significant risks to the crop, particularly with regards to lodging and fusarium head blight.","1767421287878","1"
+1. **Maize**: With 96% humidity, be cautious of blights and fungal diseases. Maintain a balanced nutrient supply.
+2. **Potatoes**: To prevent diseases, ensure good air circulation and control humidity.
+3. **Rice (Paddy)**: Optimal water levels are crucial for healthy growth. Monitor drainage to prevent waterlogged soil.
+4. **Sorghum**: Regularly inspect for pests. Maintain adequate moisture levels to promote healthy growth.
+5. **Soybeans**: Regularly monitor for diseases and ensure proper nitrogen levels.
+6. **Wheat**: Maintain optimal moisture levels and monitor for pests and diseases.
+7. **Cassava**: Regularly inspect for pests. Maintain adequate moisture levels to promote healthy growth.
+8. **Sweet Potatoes**: Control humidity and ensure good air circulation to prevent diseases.
+9. **Plantains and others**: Maintain optimal moisture levels and monitor for diseases.
+10. **Yams**: Regularly inspect for pests. Maintain adequate moisture levels to promote healthy growth.","1767441878832","1"
+"26.7","10.5","95","16.875","82.25","**Weather Summary:**
+Hot and humid weather with a temperature of 26.7°C and 95% humidity. A gentle breeze of 10.5 km/h.
+
+**Crop Plans:**
+
+1. **Maize**: Water deeply, apply 100-120 kg N/ha, control weeds.
+2. **Potatoes**: Irrigate, apply 120-150 kg N/ha, control fungal diseases.
+3. **Rice, paddy**: Flood irrigate, apply 150-180 kg N/ha, control weeds.
+4. **Sorghum**: Drip irrigate, apply 100-120 kg N/ha, control pests.
+5. **Soybeans**: Irrigate, apply 80-100 kg N/ha, control weeds.
+6. **Wheat**: Water sparingly, apply 80-100 kg N/ha, control pests.
+7. **Cassava**: Drip irrigate, apply 80-100 kg N/ha, control pests.
+8. **Sweet potatoes**: Irrigate, apply 120-150 kg N/ha, control fungal diseases.
+9. **Plantains and others**: Water deeply, apply 100-120 kg N/ha, control pests.
+10. **Yams**: Irrigate, apply 120-150 kg N/ha, control pests.
+
+**Individual Crop Advice:**
+
+1. **Maize**: Monitor for pests like stem borers. Maintain good drainage.
+2. **Potatoes**: Watch for late blight. Avoid overwatering.
+3. **Rice, paddy**: Control water stagnation. Regularly inspect for pests.
+4. **Sorghum**: Avoid waterlogging. Regularly check for pests.
+5. **Soybeans**: Manage weeds to prevent competition. Monitor for aphids.
+6. **Wheat**: Prevent soil erosion. Control weeds to promote healthy growth.
+7. **Cassava**: Regularly inspect for pests and diseases.
+8. **Sweet potatoes**: Monitor for fungal diseases like powdery scab.
+9. **Plantains and others**: Watch for pests like banana weevils.
+10. **Yams**: Regularly inspect for pests and diseases. Control weeds to promote healthy growth.","1767441878832","1"
+"22.5","6.9","96","22.625","88.375","**Weather Summary:**
+Temperature: 22.5°C (Mild)
+Humidity: 96% (High)
+Wind Speed: 6.9 km/h (Light)
+
+**Crop Plans:**
+
+1. **Maize**: Irrigate, fertilize, and apply fungicides to prevent disease.
+2. **Potatoes**: Monitor soil moisture, control weeds, and apply fungicides to prevent late blight.
+3. **Rice, paddy**: Irrigate, control weeds, and apply pesticides to prevent pests.
+4. **Sorghum**: Irrigate, fertilize, and apply herbicides to control weeds.
+5. **Soybeans**: Monitor soil moisture, control weeds, and apply fungicides to prevent disease.
+6. **Wheat**: Irrigate, fertilize, and apply herbicides to control weeds.
+7. **Cassava**: Monitor soil moisture, control weeds, and apply pesticides to prevent pests.
+8. **Sweet potatoes**: Irrigate, fertilize, and apply fungicides to prevent disease.
+9. **Plantains and others**: Irrigate, control weeds, and apply pesticides to prevent pests.
+10. **Yams**: Monitor soil moisture, control weeds, and apply fungicides to prevent disease.
+
+**Individual Crop Advice:**
+
+1. **Maize**: With high humidity, be cautious of fungal diseases. Monitor for signs of disease and adjust your fungicide application schedule accordingly.
+2. **Potatoes**: With 96% humidity, be prepared for late blight. Regularly inspect your crop for signs of disease and apply fungicides as needed.
+3. **Rice, paddy**: High humidity can lead to waterlogged soil. Ensure proper drainage to prevent root rot.
+4. **Sorghum**: With light wind, be cautious of dust-borne fungal diseases. Regularly inspect your crop for signs of disease and adjust your fungicide application schedule accordingly.
+5. **Soybeans**: High humidity can lead to fungal diseases. Monitor your crop regularly and apply fungicides as needed.
+6. **Wheat**: With high humidity, be prepared for fungal diseases. Regularly inspect your crop for signs of disease and apply fungicides as needed.
+7. **Cassava**: With high humidity, be cautious of pests like aphids and whiteflies. Regularly inspect your crop for signs of pest infestation and apply pesticides as needed.
+8. **Sweet potatoes**: High humidity can lead to fungal diseases. Monitor your crop regularly and apply fungicides as needed.
+9. **Plantains and others**: With high humidity, be prepared for fungal diseases. Regularly inspect your crop for signs of disease and apply fungicides as needed.
+10. **Yams**: High humidity can lead to fungal diseases. Monitor your crop regularly and apply fungicides as needed.","1767441878832","1"
+"27.1","12.7","82","18.875","73.0","**Weather Summary:**
+Temperature: 27.1°C, Humidity: 82%, Wind Speed: 12.7 km/h.
+Hot and humid conditions with moderate wind.
+
+**Crop Plans:**
+
+1. **Maize**: Irrigate once a week, apply nitrogen fertilizer.
+2. **Potatoes**: Water deeply once a week, control weeds.
+3. **Rice, paddy**: Flood fields, apply nitrogen and phosphorus.
+4. **Sorghum**: Irrigate twice a week, control weeds and pests.
+5. **Soybeans**: Irrigate once a week, apply nitrogen fertilizer.
+6. **Wheat**: Water deeply once a week, control weeds and pests.
+7. **Cassava**: Water deeply once a week, control weeds.
+8. **Sweet potatoes**: Water deeply once a week, control weeds.
+9. **Plantains and others**: Irrigate once a week, control pests.
+10. **Yams**: Water deeply once a week, control weeds.
+
+**Individual Crop Advice:**
+
+1. **Maize**: Monitor for aphids and whiteflies.
+2. **Potatoes**: Watch for potato beetles and late blight.
+3. **Rice, paddy**: Control water-borne diseases.
+4. **Sorghum**: Protect from bird damage and root rot.
+5. **Soybeans**: Monitor for spider mites and powdery mildew.
+6. **Wheat**: Watch for powdery mildew and rust.
+7. **Cassava**: Control mealybugs and spider mites.
+8. **Sweet potatoes**: Monitor for aphids and root-knot nematodes.
+9. **Plantains and others**: Watch for banana weevils and leaf spot.
+10. **Yams**: Control root-knot nematodes and anthracnose.","1767441878832","1"
+"29.8","10.9","85","18.5","73.875","**Weather Summary:**
+Hot and humid weather with high temperature (29.8°C) and moderate wind speed (10.9 km/h). 
+
+**Crop Plans:**
+
+1. Maize - Irrigate and apply fungicides to prevent disease.
+2. Potatoes - Monitor for heat stress, apply mulch for soil conservation.
+3. Rice, paddy - Waterlogged conditions may cause disease, monitor regularly.
+4. Sorghum - Apply foliar fertilizers to enhance growth.
+5. Soybeans - Monitor for heat stress, provide adequate moisture.
+6. Wheat - Apply nitrogen fertilizer to boost growth.
+7. Cassava - Monitor for pests and diseases, apply integrated pest management.
+8. Sweet potatoes - Provide adequate moisture, mulch for soil conservation.
+9. Plantains and others - Monitor for pests and diseases, apply integrated pest management.
+10. Yams - Monitor for pests and diseases, apply integrated pest management.
+
+**Individual Crop Advice:**
+
+1. **Maize**: Apply fungicides to prevent disease, water deeply but infrequently to encourage deep root growth.
+2. **Potatoes**: Mulch around plants to conserve soil moisture and suppress weeds. Monitor for heat stress symptoms.
+3. **Rice, paddy**: Monitor for waterlogged conditions that may cause disease. Regularly inspect fields for signs of stress.
+4. **Sorghum**: Apply foliar fertilizers to enhance growth and promote healthy leaf development.
+5. **Soybeans**: Monitor for heat stress symptoms and provide adequate moisture to prevent drought stress.
+6. **Wheat**: Apply nitrogen fertilizer to boost growth and promote healthy leaf development.
+7. **Cassava**: Monitor for pests and diseases and apply integrated pest management techniques to control them.
+8. **Sweet potatoes**: Provide adequate moisture and mulch around plants to conserve soil moisture and suppress weeds.
+9. **Plantains and others**: Monitor for pests and diseases and apply integrated pest management techniques to control them.
+10. **Yams**: Monitor for pests and diseases and apply integrated pest management techniques to control them.","1767441878832","1"
+"28.0","19.6","93","12.25","76.625","**Weather Summary**
+Temperature: 28°C (Hot)
+Humidity: 93% (High)
+Wind Speed: 19.6 km/h (Moderate)
+
+**Crop Plans**
+
+1. **Maize**: Monitor for ear rot, apply fungicides if necessary. Irrigate carefully.
+2. **Potatoes**: Watch for scab and blackleg. Use resistant varieties if possible.
+3. **Rice, paddy**: Flood fields to control weeds and pests. Maintain good drainage.
+4. **Sorghum**: Irrigate regularly, control weeds and pests. Monitor for drought.
+5. **Soybeans**: Apply fungicides to prevent rust and powdery mildew. Control weeds.
+6. **Wheat**: Monitor for powdery mildew and rust. Irrigate carefully to prevent lodging.
+7. **Cassava**: Watch for mosaic disease and control weeds. Maintain good soil health.
+8. **Sweet potatoes**: Control weeds and pests. Monitor for fungal diseases.
+9. **Plantains and others**: Monitor for fungal diseases and pests. Irrigate carefully.
+10. **Yams**: Control weeds and pests. Monitor for fungal diseases and maintain good soil health.
+
+**Individual Advice**
+
+1. **Maize**: Be cautious of ear rot due to high humidity.
+2. **Potatoes**: Use resistant varieties to prevent scab and blackleg.
+3. **Rice, paddy**: Maintain good drainage to prevent waterlogged soil.
+4. **Sorghum**: Monitor for drought due to high temperature.
+5. **Soybeans**: Apply fungicides to prevent rust and powdery mildew.
+6. **Wheat**: Be cautious of powdery mildew and rust due to high humidity.
+7. **Cassava**: Maintain good soil health to prevent mosaic disease.
+8. **Sweet potatoes**: Control weeds to prevent fungal diseases.
+9. **Plantains and others**: Monitor for fungal diseases and pests due to high humidity.
+10. **Yams**: Maintain good soil health to prevent fungal diseases.","1767441878832","1"
+"27.5","14.6","96","13.25","79.125","**Weather Summary:**
+Temperature: 27.5°C (very hot)
+Humidity: 96% (very high)
+Wind Speed: 14.6 km/h (moderate)
+
+**Crop Plans:**
+1. Maize: Irrigate, apply fungicides, and monitor for pests.
+2. Potatoes: Keep soil moist, control weeds, and watch for late blight.
+3. Rice, paddy: Ensure adequate water supply, control weeds, and monitor for pests.
+4. Sorghum: Maintain adequate water supply, apply herbicides, and monitor for diseases.
+5. Soybeans: Irrigate, control weeds, and monitor for pests and diseases.
+6. Wheat: Maintain adequate water supply, apply fungicides, and control weeds.
+7. Cassava: Keep soil moist, control weeds, and monitor for pests.
+8. Sweet potatoes: Maintain adequate soil moisture, control weeds, and watch for disease.
+9. Plantains and others: Keep soil moist, control weeds, and monitor for pests.
+10. Yams: Maintain adequate soil moisture, control weeds, and monitor for pests.
+
+**Crop Advises:**
+1. Maize: Monitor temperature; avoid water stress.
+2. Potatoes: Use integrated pest management (IPM) for late blight.
+3. Rice, paddy: Ensure proper drainage to prevent waterlogging.
+4. Sorghum: Watch for sorghum downy mildew in humid conditions.
+5. Soybeans: Avoid over-irrigation; use crop rotation techniques.
+6. Wheat: Use targeted fungicides for powdery mildew.
+7. Cassava: Use resistant varieties for cassava mosaic disease.
+8. Sweet potatoes: Use mulch to retain moisture and suppress weeds.
+9. Plantains and others: Monitor for plantain spot disease.
+10. Yams: Use IPM for yam mosaic virus.","1767441878832","1"
+"19.9","10.2","94","24.75","85.0","**Weather Summary:**
+Temperature: 19.9°C (Cool to mild)
+Humidity: 94% (High)
+Wind Speed: 10.2 km/h (Moderate)
+
+**Crop Plans:**
+
+1. **Maize**: Monitor for fungal diseases, apply fungicides if necessary.
+2. **Potatoes**: Irrigation is key, ensure consistent moisture levels.
+3. **Rice, paddy**: Maintain water levels in the field, avoid waterlogging.
+4. **Sorghum**: Fertilize with nitrogen, phosphorus, and potassium for optimal growth.
+5. **Soybeans**: Prune branches to promote even growth, watch for pests.
+6. **Wheat**: Irrigate carefully, avoid overwatering, and monitor for pests.
+7. **Cassava**: Monitor for root rot, maintain good drainage.
+8. **Sweet potatoes**: Mulch to retain moisture, prevent weed growth.
+9. **Plantains and others**: Prune diseased leaves, maintain good air circulation.
+10. **Yams**: Irrigate carefully, maintain consistent moisture levels.
+
+**Individual Advice:**
+
+1. **Maize**: Be careful with high humidity, fungal diseases can spread quickly.
+2. **Potatoes**: Regularly inspect for signs of scab and blight.
+3. **Rice, paddy**: Maintain water levels, avoid waterlogging, and ensure proper aeration.
+4. **Sorghum**: Fertilize regularly for optimal growth and yield.
+5. **Soybeans**: Watch for soybean cyst nematode, and use integrated pest management techniques.
+6. **Wheat**: Monitor for powdery mildew and fusarium head blight.
+7. **Cassava**: Regularly inspect for signs of root rot and leaf spot diseases.
+8. **Sweet potatoes**: Be mindful of aphid and whitefly infestations.
+9. **Plantains and others**: Monitor for signs of black sigatoka and other diseases.
+10. **Yams**: Regularly inspect for signs of yam mosaic virus and nematode infestations.","1767441878832","1"
+"28.9","16.1","92","14.625","77.625","**Weather Summary:**
+Hot and humid conditions with a high temperature of 28.9°C and 92% humidity. Wind speed is moderate at 16.1 km/h.
+
+**Crop Plans:**
+
+1. Maize: Irrigate, apply DAP at 15 kg/ha and monitor for pests.
+2. Potatoes: Avoid irrigation, apply fungicides to prevent blight. Monitor soil moisture.
+3. Rice, paddy: Continue flooding, apply herbicides for weed control. Monitor water levels.
+4. Sorghum: Irrigate, apply nitrogen at 30 kg/ha. Monitor for pests and diseases.
+5. Soybeans: Apply fungicides, monitor for pests. Irrigate if necessary.
+6. Wheat: Avoid irrigation, apply nitrogen at 20 kg/ha. Monitor soil moisture.
+7. Cassava: Irrigate, apply insecticides to prevent pests. Monitor for diseases.
+8. Sweet potatoes: Avoid irrigation, apply fungicides to prevent blight. Monitor soil moisture.
+9. Plantains and others: Irrigate, apply fungicides to prevent diseases. Monitor for pests.
+10. Yams: Avoid irrigation, apply insecticides to prevent pests. Monitor for diseases.
+
+**Individual Crop Advises:**
+
+1. **Maize**: Be cautious of heat stress due to high temperatures.
+2. **Potatoes**: Keep an eye out for late blight due to high humidity.
+3. **Rice, paddy**: Monitor water levels to prevent flooding or drought.
+4. **Sorghum**: Be prepared to control weeds.
+5. **Soybeans**: Be vigilant for aphid infestations.
+6. **Wheat**: Keep an eye out for powdery mildew.
+7. **Cassava**: Monitor for cassava mosaic virus.
+8. **Sweet potatoes**: Be cautious of soil-borne diseases.
+9. **Plantains and others**: Watch out for fungal diseases.
+10. **Yams**: Monitor for tuber moth infestations.","1767441878832","1"
