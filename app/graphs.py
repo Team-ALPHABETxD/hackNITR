@@ -1,121 +1,148 @@
-import os
 from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
-load_dotenv()
-llm = init_chat_model('groq:llama-3.1-8b-instant')
+from langgraph.graph import StateGraph, START, END
 
 from prompts import *
 from tools import *
 from states import *
+from debugger import AgentDebugger, debug_agent
 
-# agents
-def validator_agent(state:CropState) -> CropState:
-    crop_details = state['crop_details']
-    if(crop_details['disease_detect'] and crop_details['crop_img'] == ""):
-        state['validated'] = {
-            'flag': False,
-            'reason': 'Data inadequate!'
-        }
+load_dotenv()
+llm = init_chat_model("groq:llama-3.1-8b-instant")
+
+
+#  AGENTS 
+
+def validator_agent(state: CropState) -> CropState:
+    crop = state["crop_details"]
+
+    if crop["disease_detect"] and not crop["crop_img"]:
+        state["validated"] = {"flag": False, "reason": "Missing crop image"}
         return state
-    
-    img_verify = analyse_crop_img(crop_details['crop_img'],img_validator_prompt())
-    if(img_verify == 0 and crop_details['disease_detect']):
-        state['validated'] = {
-            'flag': False,
-            'reason': 'Image is not valided'
-        }
-        return state
-    
-    res = llm.with_structured_output(Validation).invoke(validator_prompt(crop_details))
-    state['validated'] = res.dict()
+
+    res = llm.with_structured_output(Validation).invoke(
+        validator_prompt(crop)
+    )
+    state["validated"] = res.dict()
     return state
 
-def data_agent(state:CropState) -> CropState:
-    crop_details = state['crop_details']
-    lat = crop_details['lat']
-    lon = crop_details['lon']
 
-    weather_data = get_weather_forecast(lat=lat, lon=lon)
-    res = llm.with_structured_output(Weather).invoke(weather_summary_prompt(weather_data))
-    state['weather_details'] = res.dict()
-    state['weather_details']['forecasts'] = weather_data
+def data_agent(state: CropState) -> CropState:
+    crop = state["crop_details"]
+    weather = get_weather_forecast(lat=crop["lat"], lon=crop["lon"])
+    res = llm.with_structured_output(Weather).invoke(
+        weather_summary_prompt(weather)
+    )
+    state["weather_details"] = res.dict()
     return state
 
-def yeild_predict_agent(state:CropState) -> CropState:
-    crop_details = state['crop_details']
-    res = predict_yeild(crop_details)
-    state['predicted_yeild'] = res
-    return state
-    
 
-def disease_detect_agent(state:CropState) -> CropState:
-    res = llm.with_structured_output(Disease).invoke(predict_disease_prompt(state))
-    state['disease_details'] = res.dict()
+def yeild_predict_agent(state: CropState) -> CropState:
+    state["predicted_yeild"] = predict_yeild(state["crop_details"])
     return state
 
-def disease_predict_agent(state:CropState) -> CropState:
-    res = llm.with_structured_output(Disease).invoke(predict_disease_prompt(state))
-    state['disease_details'] = res.dict()
+
+def disease_detect_agent(state: CropState) -> CropState:
+    res = llm.with_structured_output(Disease).invoke(
+        predict_disease_prompt(state)
+    )
+    state["disease_details"] = res.dict()
     return state
 
-def revenue_estimate_agent(state:CropState) -> CropState:
-    res = llm.with_structured_output(Revenue).invoke(estimate_revenue_prompt(state))
-    state['rev_strat_details'] = res.dict()
+
+def revenue_estimate_agent(state: CropState) -> CropState:
+    res = llm.with_structured_output(Revenue).invoke(
+        estimate_revenue_prompt(state)
+    )
+    state["rev_strat_details"] = res.dict()
     return state
 
-def planner_agent(state:CropState) -> CropState:
-    res = llm.with_structured_output(Plan).invoke(planner_prompt(state))
-    state['plan'] = res.dict()
+
+def planner_agent(state: CropState) -> CropState:
+    res = llm.with_structured_output(Plan).invoke(
+        planner_prompt(state)
+    )
+    state["plan"] = res.dict()
     return state
 
-def control_agent(state:CropState) -> CropState:
-    res = llm.with_structured_output(Control).invoke(disease_control_prompt(state))
-    state['control_strats'] = res.dict()
+
+def control_agent(state: CropState) -> CropState:
+    res = llm.with_structured_output(Control).invoke(
+        disease_control_prompt(state)
+    )
+    state["control_strats"] = res.dict()
     return state
 
-def collaborative_agent(state:CropState) -> CropState:
-    state['collaborative_plan'] = "Collaborate to a nearby NGO"
-    return state
 
-# conditions
-def validator_cond(state:CropState) -> bool:
-    return state['validated']['flag']
+# CONDITIONS 
 
-def disease_cond(state:CropState) -> bool:
-    return state['crop_details']['disease_detect']
+def validator_cond(state: CropState) -> bool:
+    return state["validated"]["flag"]
 
-def collaborative_cond(state:CropState) -> str:
-    return state['plan']['decision']
+def disease_cond(state: CropState) -> bool:
+    return state["crop_details"]["disease_detect"]
+
+def planner_cond(state: CropState) -> str:
+    return state["plan"]["decision"]
 
 
-# graph
-from langgraph.graph import StateGraph, START, END
+# Graph
 
-graph = StateGraph(CropState)
-graph.add_node("validator_agent", validator_agent)
-graph.add_node("data_agent", data_agent)
-graph.add_node("yeild_predict_agent", yeild_predict_agent)
-graph.add_node("disease_detect_agent", disease_detect_agent)
-graph.add_node("revenue_estimate_agent", revenue_estimate_agent)
-graph.add_node("disease_predict_agent", disease_predict_agent)
-graph.add_node("planner_agent", planner_agent)
-graph.add_node("collaborative_agent", collaborative_agent)
-graph.add_node("control_agent", control_agent)
+def build_graph(debugger: AgentDebugger):
 
+    graph = StateGraph(CropState)
 
-graph.add_edge(START, "validator_agent")
-graph.add_conditional_edges("validator_agent", validator_cond, {True: "data_agent", False: END})
-graph.add_conditional_edges("data_agent", disease_cond, {True: "disease_detect_agent", False: "disease_predict_agent"})
-# graph.add_edge(["disease_detect_agent", "disease_predict_agent"], "planner_agent")
-graph.add_edge("disease_detect_agent", "revenue_estimate_agent")
-graph.add_edge("disease_predict_agent", "revenue_estimate_agent")
-graph.add_edge("revenue_estimate_agent", "yeild_predict_agent")
-graph.add_edge("yeild_predict_agent", "planner_agent")
-graph.add_conditional_edges("planner_agent", collaborative_cond, 
-    {
-        "Sell":END,
-        "Disease Control": "control_agent",
-        "Store": END
-    })
+    graph.add_node(
+        "validator_agent",
+        debug_agent("validator_agent", debugger)(validator_agent)
+    )
+    graph.add_node(
+        "data_agent",
+        debug_agent("data_agent", debugger)(data_agent)
+    )
+    graph.add_node(
+        "yeild_predict_agent",
+        debug_agent("yeild_predict_agent", debugger)(yeild_predict_agent)
+    )
+    graph.add_node(
+        "disease_detect_agent",
+        debug_agent("disease_detect_agent", debugger)(disease_detect_agent)
+    )
+    graph.add_node(
+        "revenue_estimate_agent",
+        debug_agent("revenue_estimate_agent", debugger)(revenue_estimate_agent)
+    )
+    graph.add_node(
+        "planner_agent",
+        debug_agent("planner_agent", debugger)(planner_agent)
+    )
+    graph.add_node(
+        "control_agent",
+        debug_agent("control_agent", debugger)(control_agent)
+    )
 
-agents = graph.compile()
+    graph.add_edge(START, "validator_agent")
+    graph.add_conditional_edges(
+        "validator_agent",
+        validator_cond,
+        {True: "data_agent", False: END}
+    )
+    graph.add_conditional_edges(
+        "data_agent",
+        disease_cond,
+        {True: "disease_detect_agent", False: "revenue_estimate_agent"}
+    )
+    graph.add_edge("disease_detect_agent", "revenue_estimate_agent")
+    graph.add_edge("revenue_estimate_agent", "yeild_predict_agent")
+    graph.add_edge("yeild_predict_agent", "planner_agent")
+    graph.add_conditional_edges(
+        "planner_agent",
+        planner_cond,
+        {
+            "Sell": END,
+            "Store": END,
+            "Disease Control": "control_agent",
+        },
+    )
+
+    return graph.compile()

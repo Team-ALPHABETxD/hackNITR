@@ -21,12 +21,66 @@ import {
 
 export default function ReportPage() {
     const { t } = useLanguage();
-    const [detectDisease, setDetectDisease] = useState(false);
+    /* -------------------- STATE -------------------- */
+    const [crop, setCrop] = useState("Potatoes");
+    const [growth, setGrowth] = useState("seedling");
+    const [sowingDate, setSowingDate] = useState("");
+    const [currentDate, setCurrentDate] = useState("");
+
+    const [rainfall, setRainfall] = useState("");
+    const [pesticides, setPesticides] = useState("");
+    const [temperature, setTemperature] = useState("");
+
     const [lat, setLat] = useState("");
     const [lon, setLon] = useState("");
+
+    const [detectDisease, setDetectDisease] = useState(false);
+    const [cropImg, setCropImg] = useState<File | null>(null);
+
     const [detecting, setDetecting] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const fileInputRef = useRef<HTMLInputElement>(null);
     const cameraInputRef = useRef<HTMLInputElement>(null);
+
+
+    /* -------------------- SUBMIT -------------------- */
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const payload = {
+            Item: crop,
+            average_rain_fall_mm_per_year: Number(rainfall),
+            pesticides_tonnes: Number(pesticides),
+            avg_temp: Number(temperature),
+            lat: Number(lat),
+            lon: Number(lon),
+            growth,
+            sowing_date: sowingDate,
+            current_date: currentDate,
+            storage_availability: "No",
+            disease_detect: detectDisease,
+            crop_img: cropImg ? cropImg.name : null
+        };
+
+        try {
+            setLoading(true);
+
+            const res = await fetch("http://localhost:5000/analyse/report", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+            console.log("REPORT RESPONSE:", data);
+
+        } catch (err) {
+            console.error("REPORT ERROR:", err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const detectLocation = () => {
         if (!navigator.geolocation) {
