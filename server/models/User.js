@@ -1,38 +1,14 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const { Schema, model } = mongoose
 
-const requestSchema = new mongoose.Schema({
-  ngo: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'NGO',
-    required: true,
-    index: true
-  },
-  type: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  message: {
-    type: String,
-    default: ''
-  },
-  status: {
-    type: String,
-    enum: ['pending', 'accepted', 'rejected', 'resolved'],
-    default: 'pending'
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
-});
+const adviceSchema = new Schema({
+    date: Date,
+    message: String
+})
 
-const userSchema = new mongoose.Schema({
+
+const userSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -54,15 +30,17 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'ngo', 'admin'],
     default: 'user'
   },
-  ngo: {
+  /* ngo: {
     // if the user is an NGO account, this references the NGO profile
     type: mongoose.Schema.Types.ObjectId,
     ref: 'NGO'
+  }, */
+  advices:{
+    type: [adviceSchema],
   },
-  requests: {
-    type: [requestSchema],
-    default: []
-  },
+  
+  lat: Number,
+  lon: Number,
   createdAt: {
     type: Date,
     default: Date.now
@@ -89,4 +67,4 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = model('User', userSchema);

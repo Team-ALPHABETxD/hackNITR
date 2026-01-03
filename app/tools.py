@@ -21,7 +21,7 @@ load_dotenv()
 
 
 def get_weather_details(lat, lon):
-    response = requests.get(f'{os.getenv('WEATHER_ENDPOINT')}?lat={lat}&lon={lon}&units=metric&appid={os.getenv('WEATHER_API')}')
+    response = requests.get(f"{os.getenv('WEATHER_ENDPOINT')}?lat={lat}&lon={lon}&units=metric&appid={os.getenv('WEATHER_API')}")
     print(response.json())
     return response.json()
 
