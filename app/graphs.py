@@ -33,7 +33,10 @@ def data_agent(state: CropState) -> CropState:
     res = llm.with_structured_output(Weather).invoke(
         weather_summary_prompt(weather)
     )
-    state["weather_details"] = res.dict()
+    # Store both the LLM-generated summary and the raw forecast data
+    weather_data = res.dict()
+    weather_data["forecasts"] = weather 
+    state["weather_details"] = weather_data
     return state
 
 

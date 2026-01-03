@@ -43,8 +43,6 @@ export default function ReportPage() {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const cameraInputRef = useRef<HTMLInputElement>(null);
 
-
-    /* -------------------- SUBMIT -------------------- */
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -60,7 +58,7 @@ export default function ReportPage() {
             current_date: currentDate,
             storage_availability: "No",
             disease_detect: detectDisease,
-            crop_img: cropImg ? cropImg.name : null
+            crop_img: cropImg ? cropImg.name : "graph.png" // Fallback as in backend example
         };
 
         try {
@@ -72,11 +70,20 @@ export default function ReportPage() {
                 body: JSON.stringify(payload)
             });
 
+            if (!res.ok) throw new Error("Failed to generate report");
+
             const data = await res.json();
             console.log("REPORT RESPONSE:", data);
 
+            // Save to localStorage so results page can pick it up
+            localStorage.setItem("cropAnalysisResult", JSON.stringify(data.result));
+            
+            // Redirect to results page
+            window.location.href = "/results";
+
         } catch (err) {
             console.error("REPORT ERROR:", err);
+            alert("Error generating report. Is the backend running?");
         } finally {
             setLoading(false);
         }
@@ -133,7 +140,7 @@ export default function ReportPage() {
                 </div>
 
                 {/* FORM GRID */}
-                <form className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
 
                     {/* LEFT COLUMN */}
                     <div className="space-y-6">
@@ -146,6 +153,8 @@ export default function ReportPage() {
                             <select 
                                 name="Item"
                                 id="Item"
+                                value={crop}
+                                onChange={(e) => setCrop(e.target.value)}
                                 className="mt-1 w-full rounded-md border-2 border-gray-200 bg-white px-3 py-2.5 text-sm text-black font-medium focus:border-black focus:ring-0 transition-all outline-none"
                             >
                                 {[
@@ -174,6 +183,8 @@ export default function ReportPage() {
                             <select 
                                 name="growth"
                                 id="growth"
+                                value={growth}
+                                onChange={(e) => setGrowth(e.target.value)}
                                 className="mt-1 w-full rounded-md border-2 border-gray-200 bg-white px-3 py-2.5 text-sm text-black font-medium focus:border-black focus:ring-0 transition-all outline-none"
                             >
                                 <option>Seedling</option>
@@ -194,6 +205,8 @@ export default function ReportPage() {
                                 type="date" 
                                 name="sowing_date"
                                 id="sowing_date"
+                                value={sowingDate}
+                                onChange={(e) => setSowingDate(e.target.value)}
                                 className="mt-1 bg-white border-2 border-gray-200 text-black font-medium" 
                             />
                         </div>
@@ -208,6 +221,8 @@ export default function ReportPage() {
                                 type="date" 
                                 name="current_date"
                                 id="current_date"
+                                value={currentDate}
+                                onChange={(e) => setCurrentDate(e.target.value)}
                                 className="mt-1 bg-white border-2 border-gray-200 text-black font-medium" 
                             />
                         </div>
@@ -225,6 +240,8 @@ export default function ReportPage() {
                                 type="number"
                                 name="average_rain_fall_mm_per_year"
                                 id="rainfall"
+                                value={rainfall}
+                                onChange={(e) => setRainfall(e.target.value)}
                                 placeholder="e.g. 1485"
                                 className="mt-1 bg-white border-2 border-gray-200 text-black font-medium"
                             />
@@ -240,6 +257,8 @@ export default function ReportPage() {
                                 type="number"
                                 name="pesticides_tonnes"
                                 id="pesticides"
+                                value={pesticides}
+                                onChange={(e) => setPesticides(e.target.value)}
                                 placeholder="e.g. 121"
                                 className="mt-1 bg-white border-2 border-gray-200 text-black font-medium"
                             />
@@ -255,6 +274,8 @@ export default function ReportPage() {
                                 type="number"
                                 name="avg_temp"
                                 id="avg_temp"
+                                value={temperature}
+                                onChange={(e) => setTemperature(e.target.value)}
                                 placeholder="e.g. 16.37"
                                 className="mt-1 bg-white border-2 border-gray-200 text-black font-medium"
                             />
@@ -360,7 +381,7 @@ export default function ReportPage() {
                 active:shadow-none
               "
                         >
-                            {t("generateReport")}
+                            {loading ? "Generating..." : t("generateReport")}
                         </button>
                     </div>
                 </form>

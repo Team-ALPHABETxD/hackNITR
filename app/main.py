@@ -1,17 +1,20 @@
-from graphs import agents
+from graphs import build_graph
+from debugger import AgentDebugger
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 import pandas as pd
 import joblib
+import traceback
+import sys
 
 # visualise the graph
 from IPython.display import Image, display
 
 def graph_flow_img():
-    png_bytes = agents.get_graph().draw_mermaid_png()
-    with open("graph.png", "wb") as f:
-        f.write(png_bytes)
+    # Note: agents is defined below in the main app part
+    # This function might need to be moved or agents passed as argument
+    pass
 
 
 app = Flask(__name__)

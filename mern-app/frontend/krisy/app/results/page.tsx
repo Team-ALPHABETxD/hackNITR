@@ -79,20 +79,39 @@ const exampleData = {
 
 export default function ResultsPage() {
     const { t } = useLanguage();
+    const [analysisData, setAnalysisData] = React.useState<any>(exampleData);
+    const [loading, setLoading] = React.useState(true);
     const reportRef = useRef<HTMLDivElement>(null);
 
+    React.useEffect(() => {
+        const storedData = localStorage.getItem("cropAnalysisResult");
+        if (storedData) {
+            try {
+                const parsed = JSON.parse(storedData);
+                setAnalysisData(parsed);
+                console.log("Loaded data from localStorage:", parsed);
+            } catch (err) {
+                console.error("Failed to parse stored data:", err);
+            }
+        }
+        setLoading(false);
+    }, []);
+
     // Format weather data inside component to ensure reactivity to language changes
-    const weatherChartData = exampleData.weather_details.forecasts.daily.time.map((time, i) => ({
-        date: new Date(time).toLocaleDateString(undefined, { month: "short", day: "numeric" }),
-        temp: exampleData.weather_details.forecasts.daily.temperature_2m_max[i],
-        wind: exampleData.weather_details.forecasts.daily.wind_speed_10m_max[i],
-        humidity: exampleData.weather_details.forecasts.daily.relative_humidity_2m_max[i],
-        surface_pressure: exampleData.weather_details.forecasts.daily.surface_pressure_mean[i],
-        msl_pressure: exampleData.weather_details.forecasts.daily.pressure_msl_mean[i],
-        apparent_temp: exampleData.weather_details.forecasts.daily.apparent_temperature_max[i],
-        uv: exampleData.weather_details.forecasts.daily.uv_index_max[i],
-        daylight: exampleData.weather_details.forecasts.daily.daylight_duration[i],
-    }))
+    const weatherChartData = React.useMemo(() => {
+        if (!analysisData?.weather_details?.forecasts?.daily) return [];
+        return analysisData.weather_details.forecasts.daily.time.map((time: string, i: number) => ({
+            date: new Date(time).toLocaleDateString(undefined, { month: "short", day: "numeric" }),
+            temp: analysisData.weather_details.forecasts.daily.temperature_2m_max[i],
+            wind: analysisData.weather_details.forecasts.daily.wind_speed_10m_max[i],
+            humidity: analysisData.weather_details.forecasts.daily.relative_humidity_2m_max[i],
+            surface_pressure: analysisData.weather_details.forecasts.daily.surface_pressure_mean[i],
+            msl_pressure: analysisData.weather_details.forecasts.daily.pressure_msl_mean[i],
+            apparent_temp: analysisData.weather_details.forecasts.daily.apparent_temperature_max[i],
+            uv: analysisData.weather_details.forecasts.daily.uv_index_max[i],
+            daylight: analysisData.weather_details.forecasts.daily.daylight_duration[i],
+        }));
+    }, [analysisData, t]);
 
     // Config for Graph 1: Essentials
     const essentialsConfig = {
@@ -170,11 +189,18 @@ export default function ResultsPage() {
     }
 
     // Format revenue stats for bar chart with translated names
-    const revChartData = exampleData.rev_strat_details.rev_stats.map(stat => ({
-        name: getStrategyLabel(stat.name),
-        rev: stat.rev,
-        exp: stat.exp,
-    }))
+    const revChartData = React.useMemo(() => {
+        if (!analysisData?.rev_strat_details?.rev_stats) return [];
+        return analysisData.rev_strat_details.rev_stats.map((stat: any) => ({
+            name: getStrategyLabel(stat.name),
+            rev: stat.rev,
+            exp: stat.exp,
+        }));
+    }, [analysisData, t]);
+
+    if (loading) {
+        return <div className="min-h-screen flex items-center justify-center text-black font-bold">Loading analysis...</div>;
+    }
 
     return (
         <div className="relative min-h-screen flex flex-col items-center px-4 pt-32 pb-20">
@@ -227,7 +253,7 @@ export default function ResultsPage() {
                             <CardHeader className="bg-green-50 border-b-2 border-black rounded-t-xl relative z-10">
                                 <CardTitle className="flex items-center gap-3 text-green-800">
                                     <Lightbulb className="w-8 h-8" />
-                                    {t("finalVerdict")}: {getStrategyLabel(exampleData.plan.decision)}
+                                    {t("finalVerdict")}: {getStrategyLabel(analysisData.plan.decision)}
                                 </CardTitle>
                                 <CardDescription className="text-green-900 font-bold">
                                     Comprehensive action plan for your crop
@@ -235,11 +261,11 @@ export default function ResultsPage() {
                             </CardHeader>
                             <CardContent className="pt-6 relative z-10">
                                 <p className="text-lg md:text-xl font-black leading-relaxed text-gray-900 italic">
-                                    "{t("verdictReason")}"
+                                    "{analysisData.plan.reason}"
                                 </p>
 
                                 {/* Disease Warning Space */}
-                                {exampleData.disease_details && !exampleData.disease_details.NA && (
+                                {analysisData.disease_details && !analysisData.disease_details.NA && (
                                     <motion.div
                                         initial={{ x: -20, opacity: 0 }}
                                         animate={{ x: 0, opacity: 1 }}
@@ -247,11 +273,11 @@ export default function ResultsPage() {
                                     >
                                         <div className="flex items-center gap-2 text-red-700 font-black uppercase">
                                             <AlertTriangle className="w-6 h-6" />
-                                            {t("potentialThreat")}: {t("lateBlight")}
+                                            {t("potentialThreat")}: {analysisData.disease_details.name || t("lateBlight")}
                                         </div>
                                         <div className="grid grid-cols-2 gap-4 text-sm font-bold text-gray-700">
-                                            <div>{t("riskLevel")}: <span className="text-red-600 uppercase">{t("high")}</span></div>
-                                            <div>{t("confidence")}: {exampleData.disease_details.confidence * 10}%</div>
+                                            <div>{t("riskLevel")}: <span className="text-red-600 uppercase">{analysisData.disease_details.spoilage_risk || t("high")}</span></div>
+                                            <div>{t("confidence")}: {Math.round(analysisData.disease_details.confidence * 10)}%</div>
                                             <div className="col-span-2 mt-2 pt-2 border-t border-red-200">
                                                 <p className="text-black mb-2 uppercase text-xs font-black">{t("recoverySteps")}:</p>
                                                 <ul className="list-disc list-inside space-y-1 text-gray-800 font-medium">
@@ -271,10 +297,10 @@ export default function ResultsPage() {
                             <Globe className="w-16 h-16 text-yellow-400 rotate-12" />
                             <CardTitle className="text-2xl text-white font-black uppercase tracking-widest">{t("predictedYield")}</CardTitle>
                             <div className="text-6xl md:text-7xl font-black tracking-tighter text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">
-                                {exampleData.predicted_yeild.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                                {analysisData.predicted_yeild.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                             </div>
                             <div className="text-xl font-black uppercase tracking-widest text-[#eef6df] bg-green-800 px-4 py-1 rounded-full border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0)] mt-2">
-                                HQ / HA
+                                HG / HA
                             </div>
                             <p className="text-xs font-bold opacity-80 pt-6 border-t border-green-600/50 uppercase tracking-tighter mt-4">
                                 Estimations based on current sowing date and environmental trends.
