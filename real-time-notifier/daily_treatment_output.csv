@@ -1,40 +1,35 @@
 "farmer_id","crop_name","temperature_2m_max","wind_speed_10m_max","relative_humidity_2m_max","latitude","longitude","advice","time","diff"
-"2"," rice","10","78","96","23.32","78.96","Based on the given conditions, here are three short advice and a risk score for the rice crop:
+"2"," rice","23.7","9.1","96","23.375","79.0","Based on the given conditions, here are my short advices for rice crop:
 
-Advice 1: Reduce water stress by ensuring adequate water supply as the high humidity and moderate temperature can lead to water transpiration issues.
+1. **Maintain good drainage**: With high humidity and moderate temperature, the risk of waterlogged soil is high. Ensure proper drainage to prevent root rot and other water-related diseases.
 
-Advice 2: Monitor for lodging (fungal diseases) due to the strong wind speed. Regularly inspect the crop for any signs of disease or lodging.
+2. **Monitor for fungal diseases**: The humid environment is conducive to the growth of fungal diseases such as sheath blight and blast. Regularly inspect the crop for any signs of disease and take action promptly.
 
-Advice 3: Delay planting or consider using windbreaks to protect the crop from the high wind speed, which can cause mechanical damage to the plants and affect yields.
+3. **Adjust irrigation schedule**: Considering the high humidity and moderate temperature, the crop may require less water. Monitor soil moisture and adjust the irrigation schedule accordingly to avoid overwatering.
 
-Risk score: 7/10
+Risk score: 6 (moderate risk)","1767421287878","1"
+"1"," wheat","-21.7","29.2","84","85.625","-45.5","**Advice 1:** Immediately check for any frost damage on the wheat crop. The extremely low temperature of -21.7°C could cause significant damage to the crop.
 
-The risk score is relatively high due to the combination of factors such as high humidity, moderate temperature, and strong wind speed, which can negatively impact the rice crop.","1767379979418","1"
-"1"," wheat","-24.3","19.9","84","85.625","-45.5","Based on the given conditions, here are 3 short advices for the wheat crop:
+**Advice 2:** Consider applying a frost protection spray or using wind machines to reduce wind chill effect and prevent further damage.
 
-1. Protect the crop from extreme cold damage by covering it with a frost blanket or using sprinkler irrigation to create a layer of ice on the leaves, which can act as insulation.
-2. Monitor the crop closely for signs of cold damage, such as yellowing or browning of leaves, and consider applying a foliar fungicide to prevent secondary infections.
-3. Consider delaying planting or using cold-tolerant wheat varieties if possible, as the current conditions are not ideal for wheat germination and growth.
+**Advice 3:** Keep a close eye on the crop for signs of lodging or other damage caused by strong winds of 29.2 km/h. Take necessary steps to prevent further damage.
 
-Risk score: 8
-The combination of extremely low temperature, high humidity, and moderate wind speed creates a high risk of cold damage and frost-related issues for the wheat crop.","1767379979418","1"
-"3"," corn","26.6","22.2","73","12.5","67.875","Based on the given weather conditions, here are 3 short advisories for corn:
+**Risk Score: 9/10** due to the severe weather conditions that could cause significant damage to the wheat crop.","1767421287878","1"
+"3"," corn","26.6","24.0","74","12.5","67.875","Based on the given conditions, here are three short advice for corn:
 
-1. **Watch for pollination stress**: With a temperature of 26.6°C and moderate humidity, there's a risk of heat stress affecting pollination. Monitor the crop closely and consider adjusting irrigation schedules to maintain optimal moisture levels.
-2. **Control weeds and pests**: High winds of 22.2 km/h can spread weeds and pests, increasing the risk of infestations. Regularly scout the crop and implement integrated pest management (IPM) strategies to minimize damage.
-3. **Optimize irrigation timing**: With wind speed affecting evapotranspiration, adjust irrigation timing to avoid overwatering. Irrigate during the early morning or late evening when winds are typically lighter.
+1. Maintain a regular irrigation schedule to ensure the crop receives adequate moisture, especially with the high wind speed. This will help prevent moisture stress and reduce the risk of lodging.
+2. Scout for signs of stalk borers, which can be triggered by the high humidity and warm temperature. Regular checks will help detect any issues early and prevent significant damage.
+3. Consider applying a fungicide to protect the crop from leaf diseases, as the high humidity creates an ideal environment for fungal growth.
 
 Risk score: 6/10
 
-The risk score reflects moderate concerns related to pollination stress, weed and pest control, and irrigation management. However, the risk can be mitigated with timely interventions and close monitoring of the crop.","1767379979418","1"
-"4"," barley","14.8","55.0","96","34.558765","-123.43912","Based on the given conditions for barley, here are my recommendations:
+The high wind speed and humidity pose some risk to the crop, but the temperature is within a suitable range for growth. With proper management, these risks can be mitigated, but regular monitoring is essential to prevent significant damage.","1767421287878","1"
+"4"," barley","14.7","51.5","96","34.558765","-123.43912","As a crop advisor, given the conditions for barley, here are my recommendations:
 
-**Short Advice 1:** Given the high humidity and moderate temperature, there's a risk of fungal diseases such as scald and net blotch. Ensure regular monitoring of the crop and apply fungicides as necessary to prevent disease spread.
+1. **Watch for lodging**: The high wind speed of 51.5 km/h may cause barley plants to lodge, leading to reduced yields and increased disease risk. Consider using windbreaks or adjusting your harvesting schedule to minimize losses.
+2. **Monitor for fusarium head blight**: The humid conditions (96% humidity) and moderate temperature (14.7°C) create an ideal environment for fusarium head blight to develop. Regularly inspect your barley crop for signs of infection and consider using fungicides if necessary.
+3. **Adjust irrigation**: With the high humidity, the risk of overwatering is increased. Monitor soil moisture levels and adjust your irrigation schedule to prevent waterlogged soils, which can lead to root rot and other issues.
 
-**Short Advice 2:** The strong wind may cause lodging, which can lead to reduced yields and increased risk of disease. Consider applying a windbreak or using wind-resistant barley varieties to minimize the impact.
+Risk score: 8/10
 
-**Short Advice 3:** The high humidity may also lead to an increased risk of powdery mildew. Regularly inspect the crop for signs of the disease and apply fungicides promptly if necessary to prevent further damage.
-
-**Risk Score:** 7/10
-
-The combination of high humidity and moderate temperature creates an ideal environment for fungal diseases, while the strong wind increases the risk of lodging. However, the risk can be managed with proper monitoring and fungicide application.","1767379979418","1"
+The combination of high wind speed, high humidity, and moderate temperature creates a challenging environment for barley. While the conditions aren't extreme, they do pose significant risks to the crop, particularly with regards to lodging and fusarium head blight.","1767421287878","1"
