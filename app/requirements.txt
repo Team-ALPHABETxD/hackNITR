@@ -1,0 +1,10 @@
+flask
+cors
+flask_cors 
+pandas
+joblib
+langchain
+langgraph
+langchain-groq
+dotenv
+IPython
