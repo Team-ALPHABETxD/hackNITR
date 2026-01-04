@@ -3,7 +3,6 @@ import "./globals.css";
 import { FloatingNav } from "@/app/components/ui/floating-navbar";
 import { LanguageProvider } from "@/app/context/language-context";
 import { LanguageSelector } from "@/app/components/ui/language-selector";
-import { Assistant } from "@/app/components/ui/assistant";
 
 export const metadata: Metadata = {
   title: "Krisy",
@@ -22,7 +21,6 @@ export default function RootLayout({
           <FloatingNav />
           {children}
           <LanguageSelector />
-          <Assistant />
         </LanguageProvider>
       </body>
     </html>

@@ -43,7 +43,8 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col w-full overflow-x-hidden bg-[#f9fafb]">
+    <>
+      <main className="flex flex-col w-full overflow-x-hidden bg-[#f9fafb]">
       {/* HERO SECTION */}
       <section className="relative min-h-screen flex items-center pt-20">
         <BackgroundRippleEffect />
@@ -173,18 +174,18 @@ export default function Home() {
       {/* HOW IT WORKS */}
       <section className="py-32 px-6 bg-[#eef6df]">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-end justify-between mb-24 gap-8">
+          <div className="flex flex-col lg:flex-row items-end justify-between mb-20 gap-8">
             <div className="max-w-2xl">
-              <h2 className="text-6xl md:text-8xl font-black text-black leading-none uppercase tracking-tighter">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-black leading-none uppercase tracking-tighter mb-2 drop-shadow-lg">
                 {t("howItWorksTitle")}
               </h2>
             </div>
-            <div className="text-2xl font-black text-green-800 bg-white border-4 border-black px-8 py-4 rounded-2xl shadow-[8px_8px_0px_0px_rgba(0,0,0)] italic uppercase">
-              Simply 3 Steps
+            <div className="text-xl font-black text-green-800 bg-white border-4 border-black px-8 py-4 rounded-2xl shadow-[6px_6px_0px_0px_rgba(0,0,0)] italic uppercase">
+              SIMPLY 3 STEPS
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 relative">
             {/* Connecting Line (hidden on mobile) */}
             <div className="hidden lg:block absolute top-1/2 left-0 w-full h-2 bg-black -translate-y-1/2 z-0"></div>
 
@@ -194,12 +195,12 @@ export default function Home() {
               { step: "03", title: t("step3Title"), desc: t("step3Desc") },
             ].map((step, idx) => (
               <div key={idx} className="relative z-10">
-                <div className="bg-white border-4 border-black p-10 rounded-[40px] shadow-[12px_12px_0px_0px_rgba(0,0,0)] flex flex-col items-center text-center group hover:bg-green-600 hover:text-white transition-colors duration-300">
-                  <div className="w-20 h-20 bg-black text-white rounded-full flex items-center justify-center text-4xl font-black mb-8 border-4 border-white shadow-[4px_4px_0px_0px_rgba(0,0,0)] group-hover:bg-white group-hover:text-black group-hover:border-black transition-colors">
+                <div className="bg-white border-4 border-black p-8 rounded-[32px] shadow-[8px_8px_0px_0px_rgba(0,0,0)] flex flex-col items-center text-center group hover:bg-green-600 hover:text-white transition-colors duration-300">
+                  <div className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center text-2xl font-extrabold mb-6 border-4 border-white shadow-[4px_4px_0px_0px_rgba(0,0,0)] group-hover:bg-white group-hover:text-black group-hover:border-black transition-colors">
                     {step.step}
                   </div>
-                  <h3 className="text-3xl font-black mb-4 uppercase tracking-tight">{step.title}</h3>
-                  <p className="font-bold opacity-80 leading-relaxed text-lg">{step.desc}</p>
+                  <h3 className="text-xl font-extrabold mb-3 uppercase tracking-tight">{step.title}</h3>
+                  <p className="font-semibold opacity-80 leading-relaxed text-base">{step.desc}</p>
                 </div>
               </div>
             ))}
@@ -208,7 +209,7 @@ export default function Home() {
       </section>
 
       {/* IMPACT SECTION */}
-      <section className="py-32 px-6 bg-black text-white overflow-hidden relative">
+      <section className="py-32 px-6 bg-[#4CAF50] text-white overflow-hidden relative">
         {/* Decorative dots */}
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none"
           style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
@@ -216,18 +217,18 @@ export default function Home() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
-              <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-12 italic">
+              <h2 className="text-4xl md:text-6xl font-extrabold uppercase tracking-tighter leading-none mb-10 italic text-white drop-shadow-lg">
                 {t("impactTitle")}
               </h2>
-              <p className="text-2xl font-bold text-gray-400 max-w-lg mb-12">
+              <p className="text-2xl font-semibold text-white/90 max-w-xl mb-10 drop-shadow">
                 We're bridging the gap between traditional wisdom and cutting-edge technology to ensure food security for all.
               </p>
-              <div className="flex gap-4">
-                <div className="p-4 bg-green-500 rounded-2xl border-2 border-white shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
-                  <Activity className="w-8 h-8 text-black" />
+              <div className="flex gap-6">
+                <div className="p-4 bg-green-600 rounded-2xl border-2 border-white shadow-[4px_4px_0px_0px_rgba(255,255,255,0.7)]">
+                  <Activity className="w-8 h-8 text-white" />
                 </div>
-                <div className="p-4 bg-yellow-500 rounded-2xl border-2 border-white shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
-                  <Users className="w-8 h-8 text-black" />
+                <div className="p-4 bg-yellow-400 rounded-2xl border-2 border-white shadow-[4px_4px_0px_0px_rgba(255,255,255,0.7)]">
+                  <Users className="w-8 h-8 text-white" />
                 </div>
               </div>
             </div>
@@ -238,13 +239,13 @@ export default function Home() {
                 { val: t("impact2Val"), label: t("impact2Label"), icon: Activity },
                 { val: t("impact3Val"), label: t("impact3Label"), icon: MapPin },
               ].map((stat, idx) => (
-                <div key={idx} className="border-4 border-white p-8 rounded-3xl bg-zinc-900 shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] flex items-center gap-6">
+                <div key={idx} className="border-4 border-white p-8 rounded-3xl bg-[#388E3C] shadow-[8px_8px_0px_0px_rgba(255,255,255,0.7)] flex items-center gap-6">
                   <div className="bg-white p-4 rounded-2xl">
-                    <stat.icon className="w-10 h-10 text-black" />
+                    <stat.icon className="w-10 h-10 text-[#4CAF50]" />
                   </div>
                   <div>
-                    <p className="text-5xl font-black text-green-400 tracking-tighter">{stat.val}</p>
-                    <p className="text-xl font-black uppercase text-white/60">{stat.label}</p>
+                    <p className="text-4xl font-extrabold text-yellow-300 tracking-tighter drop-shadow-lg">{stat.val}</p>
+                    <p className="text-xl font-bold uppercase text-white/80 drop-shadow">{stat.label}</p>
                   </div>
                 </div>
               ))}
@@ -259,23 +260,28 @@ export default function Home() {
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
-          className="max-w-4xl border-8 border-black p-16 rounded-[60px] bg-green-50 shadow-[20px_20px_0px_0px_rgba(0,0,0)]"
+          className="max-w-4xl border-8 border-black p-14 rounded-[48px] bg-green-50 shadow-[16px_16px_0px_0px_rgba(0,0,0)]"
         >
-          <h2 className="text-5xl md:text-7xl font-black text-black uppercase leading-none mb-8 tracking-tighter">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-black uppercase leading-none mb-6 tracking-tighter drop-shadow-lg">
             READY TO OPTIMIZE YOUR HARVEST?
           </h2>
-          <p className="text-2xl font-bold text-gray-700 mb-12 max-w-2xl mx-auto">
+          <p className="text-xl font-semibold text-gray-700 mb-10 max-w-2xl mx-auto">
             Join thousands of smart farmers using AI to increase their yield and secure their financial future.
           </p>
-          <button className="bg-black text-white px-12 py-6 rounded-3xl text-3xl font-black uppercase shadow-[10px_10px_0px_0px_rgba(34,197,94,1)] hover:shadow-none hover:translate-x-2 hover:translate-y-2 transition-all active:scale-95 flex items-center gap-4 mx-auto">
+          <button className="bg-black text-white px-10 py-5 rounded-3xl text-2xl font-extrabold uppercase shadow-[8px_8px_0px_0px_rgba(34,197,94,1)] hover:shadow-none hover:translate-x-2 hover:translate-y-2 transition-all active:scale-95 flex items-center gap-4 mx-auto">
             START YOUR FREE ANALYSIS
-            <CheckCircle2 className="w-8 h-8 text-green-400" />
+            <CheckCircle2 className="w-7 h-7 text-green-400" />
           </button>
-          <p className="mt-8 text-sm font-black text-black/40 uppercase tracking-widest italic">
+          <p className="mt-7 text-xs font-black text-black/40 uppercase tracking-widest italic">
             No credit card required • Available in 8+ Local Languages
           </p>
         </motion.div>
       </section>
     </main>
+        {/* FOOTER */}
+        <footer className="w-full py-6 text-center text-lg font-bold" style={{ background: '#f9fafb' }}>
+          <span className="text-[#008000]">Created by ALPHABET Group</span>
+        </footer>
+      </>
   );
 }
