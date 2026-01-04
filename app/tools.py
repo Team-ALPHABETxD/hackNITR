@@ -117,7 +117,7 @@ STRICT RULES:
         }
 
         # Fixed model name to a valid version
-        model_name = "gemini-2.5-flash"
+        model_name = "gemini-1.5-flash"
         endpoint = f"https://generativelanguage.googleapis.com/v1/models/{model_name}:generateContent?key={os.getenv('GEMINI_API_KEY')}"
 
         res = requests.post(endpoint, json=payload, timeout=25)
