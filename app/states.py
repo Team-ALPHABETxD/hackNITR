@@ -12,7 +12,13 @@ class Validation(BaseModel):
 class Weather(BaseModel):
     summary: str= Field(description= "Summary of the weather forecasts in detailed.")
 
-
+class Soil(BaseModel):
+    is_soil: bool
+    N: float
+    P: float
+    K: float
+    pH: float
+    notes: str
 
 class Disease(BaseModel):
     NA: bool = Field(description="Indicates whether the provided crop details offer any meaningful evidence of any disease possibility (True: No disease predicted /False: disease predicted).")
@@ -47,6 +53,7 @@ class CropState(TypedDict):
     crop_details: Dict
     validated: Optional[Dict]
     weather_details: Optional[Dict]
+    soil_details: Optional[Dict]
     predicted_yeild: Optional[Dict]
     disease_details: Optional[Dict]
     rev_strat_details: Optional[Dict]

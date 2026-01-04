@@ -39,6 +39,12 @@ def data_agent(state: CropState) -> CropState:
     state["weather_details"] = weather_data
     return state
 
+def soil_agent(state: CropState) -> CropState:
+    crop = state["crop_details"]
+    soil_data = analyse_soil_img(crop["soil_img"])
+    state["soil_details"] = soil_data
+    return state
+
 
 def yeild_predict_agent(state: CropState) -> CropState:
     state["predicted_yeild"] = predict_yeild(state["crop_details"])
@@ -104,6 +110,10 @@ def build_graph(debugger: AgentDebugger):
         debug_agent("data_agent", debugger)(data_agent)
     )
     graph.add_node(
+        "soil_agent",
+        debug_agent("soil_agent", debugger)(soil_agent)
+    )
+    graph.add_node(
         "yeild_predict_agent",
         debug_agent("yeild_predict_agent", debugger)(yeild_predict_agent)
     )
@@ -133,8 +143,9 @@ def build_graph(debugger: AgentDebugger):
     graph.add_conditional_edges(
         "data_agent",
         disease_cond,
-        {True: "disease_detect_agent", False: "revenue_estimate_agent"}
+        {True: "disease_detect_agent", False: "soil_agent"}
     )
+    graph.add_edge("soil_agent", "disease_detect_agent")
     graph.add_edge("disease_detect_agent", "revenue_estimate_agent")
     graph.add_edge("revenue_estimate_agent", "yeild_predict_agent")
     graph.add_edge("yeild_predict_agent", "planner_agent")

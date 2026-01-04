@@ -5,6 +5,7 @@ import base64
 import joblib
 import pandas as pd
 import datetime
+import json
 
 load_dotenv()
 
@@ -131,14 +132,18 @@ STRICT RULES (MANDATORY):
 
         endpoint = f"https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key={os.getenv('GEMINI_API_KEY')}"
 
-        res = requests.post(endpoint, json=payload)
-        output = res.json()['candidates'][0]['content']['parts'][0]['text']
+        res = requests.post(endpoint, json=payload, timeout=20)
+        text = res.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
 
-        print(res.json())
-        print(output)
-
-        return output
-
+        if text == "Not a Soil Image!":
+            return {
+                "is_soil": False,
+                "confidence": 1.0,
+                "notes": "The image does not represent soil."
+            }
+        soil_data = json.loads(text)
+        return soil_data
+    
     except Exception as e:
         print("Exception: ", e)
         return "Not a Soil Image!"
