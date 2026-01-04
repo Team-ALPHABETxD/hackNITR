@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react"
 import { motion } from "framer-motion"
-import { TrendingUp, Wind, Thermometer, Droplets, Gauge, Sun, Globe, AlertTriangle, Lightbulb, Download, CheckCircle2 } from "lucide-react"
+import { TrendingUp, Wind, Thermometer, Droplets, Gauge, Sun, Globe, AlertTriangle, Lightbulb, Download, CheckCircle2, Sprout } from "lucide-react"
 import {
     CartesianGrid,
     Line,
@@ -74,6 +74,16 @@ const exampleData = {
     "plan": {
         "decision": "Sell",
         "reason": "The crop is currently in the flowering stage and the weather forecast for the next 7 days shows warm temperatures with highs around 37°C, which is suitable for the crop. Additionally, the disease analysis shows a low risk of disease occurrence. Therefore, it is recommended to sell the crop to maximize revenue."
+    },
+    "soil_details": {
+        "is_soil": true,
+        "N": 400,
+        "P": 220,
+        "K": 600,
+        "pH": 6.8,
+        "unit": "mg/kg",
+        "confidence": 0.75,
+        "notes": "The soil exhibits a very dark, rich color and fine texture, strongly indicating high organic matter content, which correlates with good nitrogen levels and overall soil fertility. The apparent moisture also suggests a healthy environment."
     }
 }
 
@@ -462,6 +472,58 @@ export default function ResultsPage() {
                             The higher bar in each category is highlighted in Green.
                         </CardFooter>
                     </Card>
+
+                    {/* Soil Status Section */}
+                    {analysisData.soil_details && (
+                        <Card className="border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0)] bg-white w-full overflow-hidden">
+                            <CardHeader className="bg-[#8B4513]/10 border-b-2 border-black rounded-t-xl">
+                                <CardTitle className="flex items-center gap-2 text-[#8B4513]">
+                                    <Sprout className="w-6 h-6" />
+                                    {t("soilStatus")}
+                                </CardTitle>
+                                <CardDescription className="text-[#8B4513] font-bold uppercase text-xs">Nutrient analysis and soil health indicators</CardDescription>
+                            </CardHeader>
+                            <CardContent className="pt-8">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    <div className="p-6 border-2 border-black bg-blue-50 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0)] flex flex-col items-center justify-center space-y-2">
+                                        <span className="text-sm font-black text-blue-800 uppercase tracking-widest">Nitrogen (N)</span>
+                                        <span className="text-4xl font-black text-black">{analysisData.soil_details.N}</span>
+                                        <span className="text-xs font-bold text-blue-600">{analysisData.soil_details.unit}</span>
+                                    </div>
+                                    <div className="p-6 border-2 border-black bg-red-50 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0)] flex flex-col items-center justify-center space-y-2">
+                                        <span className="text-sm font-black text-red-800 uppercase tracking-widest">Phosphorus (P)</span>
+                                        <span className="text-4xl font-black text-black">{analysisData.soil_details.P}</span>
+                                        <span className="text-xs font-bold text-red-600">{analysisData.soil_details.unit}</span>
+                                    </div>
+                                    <div className="p-6 border-2 border-black bg-purple-50 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0)] flex flex-col items-center justify-center space-y-2">
+                                        <span className="text-sm font-black text-purple-800 uppercase tracking-widest">Potassium (K)</span>
+                                        <span className="text-4xl font-black text-black">{analysisData.soil_details.K}</span>
+                                        <span className="text-xs font-bold text-purple-600">{analysisData.soil_details.unit}</span>
+                                    </div>
+                                    <div className="p-6 border-2 border-black bg-green-50 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0)] flex flex-col items-center justify-center space-y-2">
+                                        <span className="text-sm font-black text-green-800 uppercase tracking-widest">pH Level</span>
+                                        <span className="text-4xl font-black text-black">{analysisData.soil_details.pH}</span>
+                                        <span className="text-xs font-bold text-green-600">Acidity Ratio</span>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8 p-6 border-2 border-black bg-orange-50 rounded-xl">
+                                    <h4 className="flex items-center gap-2 text-orange-900 font-black uppercase text-sm mb-3">
+                                        <Lightbulb className="w-5 h-5" />
+                                        Expert Soil Notes
+                                    </h4>
+                                    <p className="text-gray-900 font-bold italic leading-relaxed">
+                                        "{analysisData.soil_details.notes}"
+                                    </p>
+                                    <div className="mt-4 flex items-center gap-2">
+                                        <div className="text-[10px] font-black uppercase bg-orange-200 px-2 py-1 rounded border border-orange-300">
+                                            Analysis Confidence: {Math.round(analysisData.soil_details.confidence * 100)}%
+                                        </div>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
                 </div>
             </motion.div>
         </div>

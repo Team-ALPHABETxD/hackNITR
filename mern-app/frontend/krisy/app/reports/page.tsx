@@ -37,11 +37,16 @@ export default function ReportPage() {
     const [detectDisease, setDetectDisease] = useState(false);
     const [cropImg, setCropImg] = useState<File | null>(null);
 
+    const [detectSoil, setDetectSoil] = useState(false);
+    const [soilImg, setSoilImg] = useState<File | null>(null);
+
     const [detecting, setDetecting] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const cameraInputRef = useRef<HTMLInputElement>(null);
+    const soilFileInputRef = useRef<HTMLInputElement>(null);
+    const soilCameraInputRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -58,13 +63,14 @@ export default function ReportPage() {
             current_date: currentDate,
             storage_availability: "No",
             disease_detect: detectDisease,
-            crop_img: cropImg ? cropImg.name : "graph.png" // Fallback as in backend example
+            crop_img: cropImg ? cropImg.name : "graph.png", // Fallback as in backend example
+            soil_img: soilImg ? soilImg.name : "https://www.eurokidsindia.com/blog/wp-content/uploads/2023/11/different-types-of-soils-and-their-charachterstics-870x570.jpg"
         };
 
         try {
             setLoading(true);
 
-            const res = await fetch("http://localhost:5000/analyse/report", {
+            const res = await fetch("http://127.0.0.1:5000/analyse/report", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
@@ -77,7 +83,7 @@ export default function ReportPage() {
 
             // Save to localStorage so results page can pick it up
             localStorage.setItem("cropAnalysisResult", JSON.stringify(data.result));
-            
+
             // Redirect to results page
             window.location.href = "/results";
 
@@ -150,7 +156,7 @@ export default function ReportPage() {
                                 <Sprout className="w-4 h-4 text-green-600" />
                                 {t("cropName")}
                             </Label>
-                            <select 
+                            <select
                                 name="Item"
                                 id="Item"
                                 value={crop}
@@ -180,7 +186,7 @@ export default function ReportPage() {
                                 <Sprout className="w-4 h-4 text-green-600 rotate-45" />
                                 {t("growthStage")}
                             </Label>
-                            <select 
+                            <select
                                 name="growth"
                                 id="growth"
                                 value={growth}
@@ -201,13 +207,13 @@ export default function ReportPage() {
                                 <Calendar className="w-4 h-4 text-green-600" />
                                 {t("sowingDate")}
                             </Label>
-                            <Input 
-                                type="date" 
+                            <Input
+                                type="date"
                                 name="sowing_date"
                                 id="sowing_date"
                                 value={sowingDate}
                                 onChange={(e) => setSowingDate(e.target.value)}
-                                className="mt-1 bg-white border-2 border-gray-200 text-black font-medium" 
+                                className="mt-1 bg-white border-2 border-gray-200 text-black font-medium"
                             />
                         </div>
 
@@ -217,13 +223,13 @@ export default function ReportPage() {
                                 <CalendarDays className="w-4 h-4 text-green-600" />
                                 {t("currentDate")}
                             </Label>
-                            <Input 
-                                type="date" 
+                            <Input
+                                type="date"
                                 name="current_date"
                                 id="current_date"
                                 value={currentDate}
                                 onChange={(e) => setCurrentDate(e.target.value)}
-                                className="mt-1 bg-white border-2 border-gray-200 text-black font-medium" 
+                                className="mt-1 bg-white border-2 border-gray-200 text-black font-medium"
                             />
                         </div>
                     </div>
@@ -316,49 +322,133 @@ export default function ReportPage() {
                         </div>
                     </div>
 
-                    {/* FULL WIDTH — DISEASE SECTION */}
-                    <div className="md:col-span-2 mt-8">
-                        <button
-                            type="button"
-                            id="detect_disease_btn"
-                            onClick={() => setDetectDisease(!detectDisease)}
-                            className={`w-full py-3 rounded-xl border-2 border-black font-bold uppercase flex items-center justify-center gap-3 transition-all ${detectDisease
-                                ? "bg-red-500 text-white shadow-none translate-x-[2px] translate-y-[2px]"
-                                : "bg-yellow-400 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0)] hover:bg-yellow-300"
-                                }`}
-                        >
-                            {detectDisease ? <AlertCircle /> : <Bug />}
-                            {t("detectDisease")}
-                        </button>
+                    {/* FULL WIDTH — ANALYSIS BUTTONS SECTION */}
+                    <div className="md:col-span-2 mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Disease Detect Button */}
+                        <div>
+                            <button
+                                type="button"
+                                id="detect_disease_btn"
+                                onClick={() => setDetectDisease(!detectDisease)}
+                                className={`w-full py-3 rounded-xl border-2 border-black font-bold uppercase flex items-center justify-center gap-3 transition-all ${detectDisease
+                                    ? "bg-red-500 text-white shadow-none translate-x-[2px] translate-y-[2px]"
+                                    : "bg-yellow-400 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0)] hover:bg-yellow-300"
+                                    }`}
+                            >
+                                {detectDisease ? <AlertCircle /> : <Bug />}
+                                {t("detectDisease")}
+                            </button>
 
-                        {detectDisease && (
-                            <div className="mt-8 border-2 border-dashed border-gray-400 rounded-3xl p-8 bg-gray-50/50 space-y-6 animate-in fade-in slide-in-from-top-4 duration-300">
-                                <div className="flex flex-col items-center text-center">
-                                    <p className="text-gray-800 font-bold mb-6">Upload an image or use your camera for disease detection.</p>
-                                    <div className="flex gap-6 flex-wrap justify-center w-full">
-                                        <button
-                                            type="button"
-                                            onClick={() => fileInputRef.current?.click()}
-                                            className="flex flex-col items-center gap-3 p-8 border-2 border-black bg-white rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0)] hover:bg-gray-50 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none min-w-[160px]"
-                                        >
-                                            <Upload className="w-8 h-8 text-blue-600" />
-                                            <span className="font-bold uppercase text-xs">Gallery</span>
-                                            <input type="file" ref={fileInputRef} className="hidden" accept="image/*" />
-                                        </button>
+                            {detectDisease && (
+                                <div className="mt-4 border-2 border-dashed border-gray-400 rounded-2xl p-6 bg-gray-50/50 space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
+                                    <div className="flex flex-col items-center text-center">
+                                        <p className="text-gray-800 font-bold mb-4 text-sm">Crop disease image</p>
+                                        <div className="flex gap-4 flex-wrap justify-center w-full">
+                                            <button
+                                                type="button"
+                                                onClick={() => fileInputRef.current?.click()}
+                                                className="flex flex-col items-center gap-2 p-4 border-2 border-black bg-white rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0)] hover:bg-gray-50 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-none min-w-[120px]"
+                                            >
+                                                <Upload className="w-6 h-6 text-blue-600" />
+                                                <span className="font-bold uppercase text-[10px]">Gallery</span>
+                                                <input
+                                                    type="file"
+                                                    ref={fileInputRef}
+                                                    className="hidden"
+                                                    accept="image/*"
+                                                    onChange={(e) => setCropImg(e.target.files?.[0] || null)}
+                                                />
+                                            </button>
 
-                                        <button
-                                            type="button"
-                                            onClick={() => cameraInputRef.current?.click()}
-                                            className="flex flex-col items-center gap-3 p-8 border-2 border-black bg-white rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0)] hover:bg-gray-50 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none min-w-[160px]"
-                                        >
-                                            <Camera className="w-8 h-8 text-green-600" />
-                                            <span className="font-bold uppercase text-xs">Camera</span>
-                                            <input type="file" ref={cameraInputRef} className="hidden" accept="image/*" capture="environment" />
-                                        </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => cameraInputRef.current?.click()}
+                                                className="flex flex-col items-center gap-2 p-4 border-2 border-black bg-white rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0)] hover:bg-gray-50 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-none min-w-[120px]"
+                                            >
+                                                <Camera className="w-6 h-6 text-green-600" />
+                                                <span className="font-bold uppercase text-[10px]">Camera</span>
+                                                <input
+                                                    type="file"
+                                                    ref={cameraInputRef}
+                                                    className="hidden"
+                                                    accept="image/*"
+                                                    capture="environment"
+                                                    onChange={(e) => setCropImg(e.target.files?.[0] || null)}
+                                                />
+                                            </button>
+                                        </div>
+                                        {cropImg && (
+                                            <p className="mt-3 text-[10px] font-black text-green-700 bg-green-100 px-2 py-1 rounded">
+                                                SELECTED: {cropImg.name}
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
+
+                        {/* Soil Analysis Button */}
+                        <div>
+                            <button
+                                type="button"
+                                id="detect_soil_btn"
+                                onClick={() => setDetectSoil(!detectSoil)}
+                                className={`w-full py-3 rounded-xl border-2 border-black font-bold uppercase flex items-center justify-center gap-3 transition-all ${detectSoil
+                                    ? "bg-[#8B4513] text-white shadow-none translate-x-[2px] translate-y-[2px]"
+                                    : "bg-[#D2B48C] text-black shadow-[4px_4px_0px_0px_rgba(0,0,0)] hover:bg-[#C2A47C]"
+                                    }`}
+                            >
+                                {detectSoil ? <CheckCircle2 className="w-5 h-5" /> : <Sprout className="w-5 h-5" />}
+                                Add Soil Image
+                            </button>
+
+                            {detectSoil && (
+                                <div className="mt-4 border-2 border-dashed border-gray-400 rounded-2xl p-6 bg-gray-50/50 space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
+                                    <div className="flex flex-col items-center text-center">
+                                        <p className="text-gray-800 font-bold mb-4 text-sm">Clear soil image</p>
+                                        <div className="flex gap-4 flex-wrap justify-center w-full">
+                                            <button
+                                                type="button"
+                                                onClick={() => soilFileInputRef.current?.click()}
+                                                className="flex flex-col items-center gap-2 p-4 border-2 border-black bg-white rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0)] hover:bg-gray-50 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-none min-w-[120px]"
+                                            >
+                                                <Upload className="w-6 h-6 text-blue-600" />
+                                                <span className="font-bold uppercase text-[10px]">Gallery</span>
+                                                <input
+                                                    type="file"
+                                                    ref={soilFileInputRef}
+                                                    className="hidden"
+                                                    accept="image/*"
+                                                    onChange={(e) => setSoilImg(e.target.files?.[0] || null)}
+                                                />
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                onClick={() => soilCameraInputRef.current?.click()}
+                                                className="flex flex-col items-center gap-2 p-4 border-2 border-black bg-white rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0)] hover:bg-gray-50 transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-none min-w-[120px]"
+                                            >
+                                                <Camera className="w-6 h-6 text-green-600" />
+                                                <span className="font-bold uppercase text-[10px]">Camera</span>
+                                                <input
+                                                    type="file"
+                                                    ref={soilCameraInputRef}
+                                                    className="hidden"
+                                                    accept="image/*"
+                                                    capture="environment"
+                                                    onChange={(e) => setSoilImg(e.target.files?.[0] || null)}
+                                                />
+                                            </button>
+                                        </div>
+                                        {soilImg && (
+                                            <p className="mt-3 text-[10px] font-black text-green-700 bg-green-100 px-2 py-1 rounded">
+                                                SELECTED: {soilImg.name}
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     {/* SUBMIT BUTTON */}
