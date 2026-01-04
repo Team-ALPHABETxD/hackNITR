@@ -263,7 +263,8 @@ export default function ResultsPage() {
                             <CardHeader className="bg-green-50 border-b-2 border-black rounded-t-xl relative z-10">
                                 <CardTitle className="flex items-center gap-3 text-green-800">
                                     <Lightbulb className="w-8 h-8" />
-                                    {t("finalVerdict")}: {getStrategyLabel(analysisData.plan.decision)}
+                                    {t("finalVerdict")}: {getStrategyLabel(analysisData?.plan?.decision || "Sell")}
+
                                 </CardTitle>
                                 <CardDescription className="text-green-900 font-bold">
                                     Comprehensive action plan for your crop
@@ -271,11 +272,11 @@ export default function ResultsPage() {
                             </CardHeader>
                             <CardContent className="pt-6 relative z-10">
                                 <p className="text-lg md:text-xl font-black leading-relaxed text-gray-900 italic">
-                                    "{analysisData.plan.reason}"
+                                    "{analysisData?.plan?.reason || ""}"
                                 </p>
 
                                 {/* Disease Warning Space */}
-                                {analysisData.disease_details && !analysisData.disease_details.NA && (
+                                {analysisData?.disease_details && !analysisData.disease_details.NA && (
                                     <motion.div
                                         initial={{ x: -20, opacity: 0 }}
                                         animate={{ x: 0, opacity: 1 }}
@@ -283,11 +284,11 @@ export default function ResultsPage() {
                                     >
                                         <div className="flex items-center gap-2 text-red-700 font-black uppercase">
                                             <AlertTriangle className="w-6 h-6" />
-                                            {t("potentialThreat")}: {analysisData.disease_details.name || t("lateBlight")}
+                                            {t("potentialThreat")}: {analysisData?.disease_details?.name || t("lateBlight")}
                                         </div>
                                         <div className="grid grid-cols-2 gap-4 text-sm font-bold text-gray-700">
-                                            <div>{t("riskLevel")}: <span className="text-red-600 uppercase">{analysisData.disease_details.spoilage_risk || t("high")}</span></div>
-                                            <div>{t("confidence")}: {Math.round(analysisData.disease_details.confidence * 10)}%</div>
+                                            <div>{t("riskLevel")}: <span className="text-red-600 uppercase">{analysisData?.disease_details?.spoilage_risk || t("high")}</span></div>
+                                            <div>{t("confidence")}: {analysisData?.disease_details?.confidence ? Math.round(analysisData.disease_details.confidence * 10) : 0}%</div>
                                             <div className="col-span-2 mt-2 pt-2 border-t border-red-200">
                                                 <p className="text-black mb-2 uppercase text-xs font-black">{t("recoverySteps")}:</p>
                                                 <ul className="list-disc list-inside space-y-1 text-gray-800 font-medium">
@@ -307,7 +308,7 @@ export default function ResultsPage() {
                             <Globe className="w-16 h-16 text-yellow-400 rotate-12" />
                             <CardTitle className="text-2xl text-white font-black uppercase tracking-widest">{t("predictedYield")}</CardTitle>
                             <div className="text-6xl md:text-7xl font-black tracking-tighter text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">
-                                {analysisData.predicted_yeild.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                                {analysisData?.predicted_yeild?.toLocaleString(undefined, { maximumFractionDigits: 0 }) || 0}
                             </div>
                             <div className="text-xl font-black uppercase tracking-widest text-[#eef6df] bg-green-800 px-4 py-1 rounded-full border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0)] mt-2">
                                 HG / HA
@@ -487,22 +488,22 @@ export default function ResultsPage() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                     <div className="p-6 border-2 border-black bg-blue-50 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0)] flex flex-col items-center justify-center space-y-2">
                                         <span className="text-sm font-black text-blue-800 uppercase tracking-widest">Nitrogen (N)</span>
-                                        <span className="text-4xl font-black text-black">{analysisData.soil_details.N}</span>
-                                        <span className="text-xs font-bold text-blue-600">{analysisData.soil_details.unit}</span>
+                                        <span className="text-4xl font-black text-black">{analysisData?.soil_details?.N || 0}</span>
+                                        <span className="text-xs font-bold text-blue-600">{analysisData?.soil_details?.unit}</span>
                                     </div>
                                     <div className="p-6 border-2 border-black bg-red-50 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0)] flex flex-col items-center justify-center space-y-2">
                                         <span className="text-sm font-black text-red-800 uppercase tracking-widest">Phosphorus (P)</span>
-                                        <span className="text-4xl font-black text-black">{analysisData.soil_details.P}</span>
-                                        <span className="text-xs font-bold text-red-600">{analysisData.soil_details.unit}</span>
+                                        <span className="text-4xl font-black text-black">{analysisData?.soil_details?.P || 0}</span>
+                                        <span className="text-xs font-bold text-red-600">{analysisData?.soil_details?.unit}</span>
                                     </div>
                                     <div className="p-6 border-2 border-black bg-purple-50 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0)] flex flex-col items-center justify-center space-y-2">
                                         <span className="text-sm font-black text-purple-800 uppercase tracking-widest">Potassium (K)</span>
-                                        <span className="text-4xl font-black text-black">{analysisData.soil_details.K}</span>
-                                        <span className="text-xs font-bold text-purple-600">{analysisData.soil_details.unit}</span>
+                                        <span className="text-4xl font-black text-black">{analysisData?.soil_details?.K || 0}</span>
+                                        <span className="text-xs font-bold text-purple-600">{analysisData?.soil_details?.unit}</span>
                                     </div>
                                     <div className="p-6 border-2 border-black bg-green-50 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0)] flex flex-col items-center justify-center space-y-2">
                                         <span className="text-sm font-black text-green-800 uppercase tracking-widest">pH Level</span>
-                                        <span className="text-4xl font-black text-black">{analysisData.soil_details.pH}</span>
+                                        <span className="text-4xl font-black text-black">{analysisData?.soil_details?.pH || 0}</span>
                                         <span className="text-xs font-bold text-green-600">Acidity Ratio</span>
                                     </div>
                                 </div>
@@ -513,11 +514,11 @@ export default function ResultsPage() {
                                         Expert Soil Notes
                                     </h4>
                                     <p className="text-gray-900 font-bold italic leading-relaxed">
-                                        "{analysisData.soil_details.notes}"
+                                        "{analysisData?.soil_details?.notes || ""}"
                                     </p>
                                     <div className="mt-4 flex items-center gap-2">
                                         <div className="text-[10px] font-black uppercase bg-orange-200 px-2 py-1 rounded border border-orange-300">
-                                            Analysis Confidence: {Math.round(analysisData.soil_details.confidence * 100)}%
+                                            Analysis Confidence: {analysisData?.soil_details?.confidence ? Math.round(analysisData.soil_details.confidence * 100) : 0}%
                                         </div>
                                     </div>
                                 </div>

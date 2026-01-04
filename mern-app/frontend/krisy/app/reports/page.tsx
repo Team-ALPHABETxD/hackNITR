@@ -16,7 +16,8 @@ import {
     Upload,
     AlertCircle,
     CheckCircle2,
-    CalendarDays
+    CalendarDays,
+    CloudCog
 } from "lucide-react";
 import axios from "axios";
 
@@ -53,7 +54,7 @@ export default function ReportPage() {
     const generateImgUrl = async () => {
         try {
             const formData = new FormData()
-            formData.append('image', cropImg as Blob)
+            formData.append('image', soilImg as Blob)
             const response = await axios.post(
                 `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMG_API}`,
                 formData,
@@ -63,7 +64,8 @@ export default function ReportPage() {
                     }
                 }
             )
-            const url = response.data.data.medium.url
+            console.log(response)
+            const url = response.data.data.image.url
             console.log(url)
             return url
         } catch (err) {
