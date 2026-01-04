@@ -18,6 +18,7 @@ import {
     CheckCircle2,
     CalendarDays
 } from "lucide-react";
+import axios from "axios";
 
 export default function ReportPage() {
     const { t } = useLanguage();
@@ -48,9 +49,33 @@ export default function ReportPage() {
     const soilFileInputRef = useRef<HTMLInputElement>(null);
     const soilCameraInputRef = useRef<HTMLInputElement>(null);
 
+    console.log(process.env.NEXT_PUBLIC_IMG_API)
+    const generateImgUrl = async () => {
+        try {
+            const formData = new FormData()
+            formData.append('image', cropImg as Blob)
+            const response = await axios.post(
+                `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMG_API}`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            )
+            const url = response.data.data.medium.url
+            console.log(url)
+            return url
+        } catch (err) {
+            console.log("URL error:", err)
+        }
+    }
+
+
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        const imgUrl = await generateImgUrl();
         const payload = {
             Item: crop,
             average_rain_fall_mm_per_year: Number(rainfall),
@@ -64,8 +89,9 @@ export default function ReportPage() {
             storage_availability: "No",
             disease_detect: detectDisease,
             crop_img: cropImg ? cropImg.name : "graph.png", // Fallback as in backend example
-            soil_img: soilImg ? soilImg.name : "https://www.eurokidsindia.com/blog/wp-content/uploads/2023/11/different-types-of-soils-and-their-charachterstics-870x570.jpg"
+            soil_img: imgUrl ? imgUrl : "https://www.eurokidsindia.com/blog/wp-content/uploads/2023/11/different-types-of-soils-and-their-charachterstics-870x570.jpg"
         };
+        console.log(payload)
 
         try {
             setLoading(true);

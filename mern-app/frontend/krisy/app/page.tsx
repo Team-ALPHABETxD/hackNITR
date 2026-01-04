@@ -41,6 +41,8 @@ export default function Home() {
       opacity: 1
     }
   };
+  console.log(process.env.NEXT_PUBLIC_IMG_API)
+
 
   return (
     <>
